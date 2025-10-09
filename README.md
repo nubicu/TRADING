@@ -1,0 +1,2 @@
+# trading
+Materiale informative trading
