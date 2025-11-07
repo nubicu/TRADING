@@ -1,0 +1,149 @@
+Common Generative AI Use Cases:
+%pip install --upgrade --quiet google-cloud-aiplatform
+
+from inspect import cleandoc
+from IPython.display import display, Markdown
+
+import vertexai
+from vertexai.generative_models import GenerativeModel, GenerationConfig
+
+PROJECT = !gcloud config get-value project
+PROJECT_ID = PROJECT[0]
+REGION = "us-east4"
+vertexai.init(project=PROJECT_ID, location=REGION)
+
+model = GenerativeModel("gemini-2.0-flash-001")
+
+creative_gen_config = GenerationConfig(temperature=1, top_p=0.8)
+
+prompt = "What are some strategies for overcoming writer's block?"
+
+response = model.generate_content(prompt,
+                                  generation_config=creative_gen_config) 
+print(response.text)
+
+predictable_gen_config = GenerationConfig(temperature=0.1, top_p=0.1)
+
+import pandas as pd
+from sklearn.metrics import classification_report
+from IPython.display import Markdown
+
+review_data_df = pd.DataFrame(
+    {
+        "review": [
+            "i love this product. it does have everything i am looking for!",
+            "all i can say is that you will be happy after buying this product",
+            "its way too expensive and not worth the price",
+            "i am feeling okay. its neither good nor too bad.",
+        ],
+        "sentiment_groundtruth": ["positive", "positive", "negative", "neutral"],
+    }
+)
+
+# After cleaning labels:
+review_data_df["sentiment_groundtruth"] = review_data_df["sentiment_groundtruth"].str.lower().str.strip()
+review_data_df["sentiment_prediction"] = review_data_df["sentiment_prediction"].str.lower().str.strip()
+
+
+
+review_data_df
+
+def get_sentiment(row):
+    prompt = f"""Classify the sentiment of the following review as "positive", "neutral" or "negative". Return only the classification.
+                review: {row}
+              """
+    response = model.generate_content(
+        contents=prompt, generation_config=predictable_gen_config
+    ).text
+    return response
+
+
+review_data_df["sentiment_prediction"] = review_data_df["review"].apply(get_sentiment)
+review_data_df
+
+
+
+report = classification_report(
+    review_data_df["sentiment_groundtruth"],
+    review_data_df["sentiment_prediction"],
+    zero_division=0 # Or 1, depending on desired behavior for empty classes
+)
+Markdown(report)
+
+
+
+predictable_gen_config = GenerationConfig(temperature=0.1, top_p=0.1)
+
+
+
+prompt = """
+Provide a very short summary in four bullet points for the following article:
+
+Our quantum computers work by manipulating qubits in an orchestrated fashion that we call quantum algorithms.
+The challenge is that qubits are so sensitive that even stray light can cause calculation errors — and the problem worsens as quantum computers grow.
+This has significant consequences, since the best quantum algorithms that we know for running useful applications require the error rates of our qubits to be far lower than we have today.
+To bridge this gap, we will need quantum error correction.
+Quantum error correction protects information by encoding it across multiple physical qubits to form a "logical qubit," and is believed to be the only way to produce a large-scale quantum computer with error rates low enough for useful calculations.
+Instead of computing on the individual qubits themselves, we will then compute on logical qubits. By encoding larger numbers of physical qubits on our quantum processor into one logical qubit, we hope to reduce the error rates to enable useful quantum algorithms.
+
+Bullet points:
+
+"""
+
+response = model.generate_content(
+    contents=prompt, generation_config=predictable_gen_config
+)
+Markdown(response.text)
+
+
+
+
+order = "We need eight grilled cheese sandwiches. Two with swiss cheese, three with muenster, three with cheddar."
+
+prompt = """
+    Break the customer's order into individual items with keys for the following fields:
+    - item_name
+    - cheese_selection
+
+    Order:
+    {order_field}
+""".format(order_field=order)
+
+response = model.generate_content(
+    contents=prompt, generation_config=predictable_gen_config
+)
+print(response.text)
+
+
+
+
+context = """
+Storage and content policy \n
+How durable is my data in Cloud Storage? \n
+Cloud Storage is designed for 99.999999999% (11 9's) annual durability, which is appropriate for even primary storage and
+business-critical applications. This high durability level is achieved through erasure coding that stores data pieces redundantly
+across multiple devices located in multiple availability zones.
+Objects written to Cloud Storage must be redundantly stored in at least two different availability zones before the
+write is acknowledged as successful. Checksums are stored and regularly revalidated to proactively verify that the data
+integrity of all data at rest as well as to detect corruption of data in transit. If required, corrections are automatically
+made using redundant data. Customers can optionally enable object versioning to add protection against accidental deletion.
+"""
+
+question = "How is high availability achieved?"
+
+prompt = f"""Answer the question given in the contex below:
+Context: {context}?\n
+Question: {question} \n
+Answer:
+"""
+
+print("[Prompt]")
+print(prompt)
+
+print("[Response]")
+response = model.generate_content(contents=prompt, generation_config=predictable_gen_config)
+print(response.text)
+
+
+
+

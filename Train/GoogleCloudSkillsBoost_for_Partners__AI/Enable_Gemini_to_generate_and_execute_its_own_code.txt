@@ -1,0 +1,51 @@
+************  Using code execution  *********
+
+############# Google Gen AI SDK
+from google import genai
+from google.genai.types import GenerateContentConfig, Tool, ToolCodeExecution
+from pprint import pprint
+
+genai_client = genai.Client(
+    vertexai=True,
+    project='YOUR-PROJECT-ID',
+    location='us-central1'
+)
+
+code_execution_tool = Tool(
+    code_execution=ToolCodeExecution()
+)
+
+code_execution_tool_config = GenerateContentConfig(
+    tools=[code_execution_tool],
+)
+
+QUERY = """
+Using the data below, construct a bar chart that includes only the height values with different colors for the bars:
+
+tree_heights_prices = {
+  \"Pine\": {\"height\": 100, \"price\": 100},
+  \"Oak\": {\"height\": 65, \"price\": 135},
+  \"Birch\": {\"height\": 45, \"price\": 80},
+  \"Redwood\": {\"height\": 200, \"price\": 200},
+  \"Fir\": {\"height\": 180, \"price\": 162},
+}
+
+Please include the data in the generated code.
+"""
+
+chat = client.chats.create(
+    model="gemini-2.0-flash-exp",
+    config=GenerateContentConfig(
+        tools=[code_execution_tool],
+        temperature=0,
+    ),
+)
+
+response = chat.send_message(QUERY)
+
+for part in response.candidates[0].content.parts:
+    pprint(dict(part))
+    
+
+
+########### 

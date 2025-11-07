@@ -1,0 +1,415 @@
+Prompt Design Strategies
+
+%pip install --upgrade --quiet google-cloud-aiplatform
+
+restart session
+
+
+
+from inspect import cleandoc
+from IPython.display import display, Markdown
+
+import vertexai
+from vertexai.generative_models import GenerativeModel, GenerationConfig
+
+PROJECT_ID = "qwiklabs-gcp-04-fb948e168911"  
+LOCATION = "us-central1"
+import vertexai
+vertexai.init(project=PROJECT_ID, location=LOCATION)
+
+model = GenerativeModel("gemini-2.0-flash-001")
+
+
+
+transcript = """
+    Speaker 1 (Customer): Hi, can I get a cheeseburger and large fries, please?
+    Speaker 2 (Restaurant employee): Coming right up! Anything else you'd like to add to your order?
+    Speaker 1: Hmmm, maybe a small orange juice. And could I get the fries with ketchup on the side?
+    Speaker 2: No problem, one cheeseburger, one large fries with ketchup on the side, and a small
+    orange juice. That'll be $5.87. Drive through to the next window please.
+"""
+
+
+response = model.generate_content(f"""
+    Extract the transcript to JSON.
+
+    {transcript}
+""")
+
+print(response.text)
+
+
+
+response = model.generate_content(f"""
+    <INSTRUCTIONS>
+    - Extract the ordered items into JSON.
+    - Separate drinks from food.
+    - Include a quantity for each item and a size if specified.
+    </INSTRUCTIONS>
+
+    <TRANSCRIPT>
+    {transcript}
+    </TRANSCRIPT>
+""")
+
+print(response.text)
+
+
+
+
+
+chat = model.start_chat()
+
+response = chat.send_message(
+    """
+    Provide a brief guide to caring for the houseplant monstera deliciosa?
+    """
+)
+
+print(response.text)
+
+
+
+
+new_chat = model.start_chat()
+
+response = new_chat.send_message(
+    """
+    You are a houseplant monstera deliciosa. Help the person who
+    is taking care of you to understand your needs.
+    """
+)
+
+print(response.text)
+
+
+
+question = """
+We offer software consulting services. Read a potential
+customer's message and rank them on a scale of 1 to 3
+based on whether they seem likely to hire us for our
+developer services within the next month. Return the likelihood
+rating labeled as "Likelihood: SCORE".
+Do not include any Markdown styling.
+
+1 means they are not likely to hire.
+2 means they might hire, but they are not likely ready to do
+so right away.
+3 means they are looking to start a project soon.
+
+Example Message: Hey there I had an idea for an app,
+and I have no idea what it would cost to build it.
+Can you give me a rough ballpark?
+Likelihood: 1
+
+Example Message: My department has been using a vendor for
+our development, and we are interested in exploring other
+options. Do you have time for a discussion around your
+services?
+Likelihood: 2
+
+Example Message: I have mockups drawn for an app and a budget
+allocated. We are interested in moving forward to have a
+proof of concept built within 2 months, with plans to develop
+it further in the following quarter.
+Likelihood: 3
+
+Customer Message: Our department needs a custom gen AI solution.
+We have a budget to explore our idea. Do you have capacity
+to get started on something soon?
+Likelihood: """
+
+response = model.generate_content(question)
+
+print(response.text)
+
+
+
+
+response = model.generate_content(
+    """
+    Tell me a joke about frogs.
+    """,
+    generation_config={"top_p": .05,
+                       "temperature": 0.05}
+)
+
+print(response.text)
+
+
+
+response = model.generate_content(
+    """
+    Tell me a joke about frogs.
+    """,
+    generation_config={"top_p": .98,
+                       "temperature": 1}
+)
+
+print(response.text)
+
+
+
+response = model.generate_content(
+    """
+    Instructions: Answer questions about pottery.
+    If a user asks about something else, reply with:
+    Sorry, I only talk about pottery!
+
+    User Query: How high can a horse jump?
+    """
+)
+
+print(response.text)
+
+
+
+
+
+response = model.generate_content(
+    """
+    Instructions: Answer questions about pottery.
+    If a user asks about something else, reply with:
+    Sorry, I only talk about pottery!
+
+    User Query: What is the difference between ceramic
+    and porcelain? Please keep your response brief.
+    """
+)
+
+print(response.text)
+
+
+
+
+
+response = model.generate_content(
+    """
+    On what aisle numbers can I find the following items?
+    - paper plates
+    - mustard
+    - potatoes
+    """
+)
+
+print(response.text)
+
+
+
+
+
+response = model.generate_content("""
+    Context:
+    Michael's Grocery Store Aisle Layout:
+    Aisle 1: Fruits — Apples, bananas,  grapes, oranges, strawberries, avocados, peaches, etc.
+    Aisle 2: Vegetables — Potatoes, onions, carrots, salad greens, broccoli, peppers, tomatoes, cucumbers, etc.
+    Aisle 3: Canned Goods — Soup, tuna, fruit, beans, vegetables, pasta sauce, etc.
+    Aisle 4: Dairy — Butter, cheese, eggs, milk, yogurt, etc.
+    Aisle 5: Meat— Chicken, beef, pork, sausage, bacon etc.
+    Aisle 6: Fish & Seafood— Shrimp, crab, cod, tuna, salmon, etc.
+    Aisle 7: Deli— Cheese, salami, ham, turkey, etc.
+    Aisle 8: Condiments & Spices— Black pepper, oregano, cinnamon, sugar, olive oil, ketchup, mayonnaise, etc.
+    Aisle 9: Snacks— Chips, pretzels, popcorn, crackers, nuts, etc.
+    Aisle 10: Bread & Bakery— Bread, tortillas, pies, muffins, bagels, cookies, etc.
+    Aisle 11: Beverages— Coffee, teabags, milk, juice, soda, beer, wine, etc.
+    Aisle 12: Pasta, Rice & Cereal—Oats, granola, brown rice, white rice, macaroni, noodles, etc.
+    Aisle 13: Baking— Flour, powdered sugar, baking powder, cocoa etc.
+    Aisle 14: Frozen Foods — Pizza, fish, potatoes, ready meals, ice cream, etc.
+    Aisle 15: Personal Care— Shampoo, conditioner, deodorant, toothpaste, dental floss, etc.
+    Aisle 16: Health Care— Saline, band-aid, cleaning alcohol, pain killers, antacids, etc.
+    Aisle 17: Household & Cleaning Supplies—Laundry detergent, dish soap, dishwashing liquid, paper towels, tissues, trash bags, aluminum foil, zip bags, etc.
+    Aisle 18: Baby Items— Baby food, diapers, wet wipes, lotion, etc.
+    Aisle 19: Pet Care— Pet food, kitty litter, chew toys, pet treats, pet shampoo, etc.
+
+    Query:
+    On what aisle numbers can I find the following items?
+    - paper plates
+    - mustard
+    - potatoes
+    """
+)
+
+print(response.text)
+
+
+
+
+prompt = """
+  <OBJECTIVE_AND_PERSONA>
+  You are a dating matchmaker.
+  Your task is to identify common topics or interests between
+  the USER_ATTRIBUTES and POTENTIAL_MATCH options and present them
+  as a fun and meaningful potential matches.
+  </OBJECTIVE_AND_PERSONA>
+
+  <INSTRUCTIONS>
+  To complete the task, you need to follow these steps:
+  1. Identify matching or complimentary elements from the
+     USER_ATTRIBUTES and the POTENTIAL_MATCH options.
+  2. Pick the POTENTIAL_MATCH that represents the best match to the USER_ATTRIBUTES
+  3. Describe that POTENTIAL_MATCH like an encouraging friend who has
+     found a good dating prospect for a friend.
+  4. Don't insult the user or potential matches.
+  5. Only mention the best match. Don't mention the other potential matches.
+  </INSTRUCTIONS>
+
+  <CONTEXT>
+  <USER_ATTRIBUTES>
+  Name: Allison
+  I like to go to classical music concerts and the theatre.
+  I like to swim.
+  I don't like sports.
+  My favorite cuisines are Italian and ramen. Anything with noodles!
+  </USER_ATTRIBUTES>
+
+  <POTENTIAL_MATCH 1>
+  Name: Jason
+  I'm very into sports.
+  My favorite team is the Detroit Lions.
+  I like baked potatoes.
+  </POTENTIAL_MATCH 1>
+
+  <POTENTIAL_MATCH 2>
+  Name: Felix
+  I'm very into Beethoven.
+  I like German food. I make a good spaetzle, which is like a German pasta.
+  I used to play water polo and still love going to the beach.
+  </POTENTIAL_MATCH 2>
+  </CONTEXT>
+
+  <OUTPUT_FORMAT>
+  Format results in Markdown.
+  </OUTPUT_FORMAT>
+"""
+
+response = model.generate_content(prompt)
+
+print(response.text)
+
+
+
+
+
+system_instructions = """
+    You will respond as a music historian,
+    demonstrating comprehensive knowledge
+    across diverse musical genres and providing
+    relevant examples. Your tone will be upbeat
+    and enthusiastic, spreading the joy of music.
+    If a question is not related to music, the
+    response should be, 'That is beyond my knowledge.'
+"""
+
+music_model = GenerativeModel("gemini-2.5-pro",
+                    system_instruction=system_instructions)
+
+response = music_model.generate_content(
+    """
+    Who is worth studying?
+    """
+)
+
+print(response.text)
+
+
+
+
+
+
+question = """
+Instructions:
+Use the context and make any updates needed in the scenario to answer the question.
+
+Context:
+A high efficiency factory produces 100 units per day.
+A medium efficiency factory produces 60 units per day.
+A low efficiency factory produces 30 units per day.
+
+Megacorp owns 5 factories. 3 are high efficiency, 2 are low efficiency.
+
+<EXAMPLE SCENARIO>
+Scenario:
+Tomorrow Megacorp will have to shut down one high efficiency factory.
+It will add two rented medium efficiency factories to make up production.
+
+Question:
+How many units can they produce today? How many tomorrow?
+
+Answer:
+
+Today's Production:
+* High efficiency factories: 3 factories * 100 units/day/factory = 300 units/day
+* Low efficiency factories: 2 factories * 30 units/day/factory = 60 units/day
+* **Total production today: 300 units/day + 60 units/day = 360 units/day**
+
+Tomorrow's Production:
+* High efficiency factories: 2 factories * 100 units/day/factory = 200 units/day
+* Medium efficiency factories: 2 factories * 60 units/day/factory = 120 units/day
+* Low efficiency factories: 2 factories * 30 units/day/factory = 60 units/day
+* **Total production today: 300 units/day + 60 units/day = 380 units/day**
+</EXAMPLE SCENARIO>
+
+<SCENARIO>
+Scenario:
+Tomorrow Megacorp will reconfigure a low efficiency factory up to medium efficiency.
+And the remaining low efficiency factory has an outage that cuts output in half.
+
+Question:
+How many units can they produce today? How many tomorrow?
+
+Answer: """
+
+response = model.generate_content(question,
+                                  generation_config={"temperature": 0})
+print(response.text)
+
+
+
+
+
+response = model.generate_content(
+    """
+    To explain the difference between a TPU and a GPU, what are
+    five different ideas for metaphors that compare the two?
+    """
+)
+
+brainstorm_response = response.text
+print(brainstorm_response)
+
+
+
+
+response = model.generate_content(
+    """
+    From the perspective of a college student learning about
+    computers, choose only one of the following explanations
+    of the difference between TPUs and GPUs that captures
+    your visual imagination while contributing
+    to your understanding of the technologies.
+
+    {brainstorm_response}
+    """.format(brainstorm_response=brainstorm_response)
+)
+
+student_response = response.text
+
+print(student_response)
+
+
+
+
+
+
+response = model.generate_content(
+    """
+    Elaborate on the choice of metaphor below by turning
+    it into an introductory paragraph for a blog post.
+
+    {student_response}
+    """.format(student_response=student_response)
+)
+
+blog_post = response.text
+
+print(blog_post)

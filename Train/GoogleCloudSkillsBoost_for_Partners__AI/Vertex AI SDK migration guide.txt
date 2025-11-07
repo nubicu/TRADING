@@ -1,0 +1,284 @@
+pip install -U -q "google-genai"
+
+Imports:
+from google import genai
+from google.genai.types import Content, CreateCachedContentConfig, HttpOptions, Part
+
+Create:
+client = genai.Client(http_options=HttpOptions(api_version="v1"))
+
+content_cache = client.caches.create(
+    model="gemini-2.5-flash",
+    config=CreateCachedContentConfig(
+        contents=contents,
+        system_instruction=system_instruction,
+        display_name="example-cache",
+        ttl="86400s",
+    ),
+)
+
+
+Get:
+content_cache_list = client.caches.list()
+
+# Access individual properties of a ContentCache object(s)
+for content_cache in content_cache_list:
+    print(f"Cache `{content_cache.name}` for model `{content_cache.model}`")
+    print(f"Last updated at: {content_cache.update_time}")
+    print(f"Expires at: {content_cache.expire_time}")
+    
+
+Delete:
+client.caches.delete(name=cache_name)
+
+
+
+Update:
+content_cache = client.caches.update(
+    name=cache_name, config=UpdateCachedContentConfig(ttl="36000s")
+)
+
+
+
+List:
+cache_contents = client.caches.list(config={'page_size': 2})
+
+
+
+Configuration and system instructions:
+from google.genai import types
+
+response = client.models.generate_content(
+  model='gemini-2.5-flash',
+  contents='high',
+  config=types.GenerateContentConfig(
+    system_instruction='I say high, you say low',
+    max_output_tokens=3,
+    temperature=0.3,
+    response_logprobs=True,
+    logprobs=3,
+  ),
+)
+
+
+
+Embeddings:
+from google.genai.types import EmbedContentConfig
+
+client = genai.Client()
+response = client.models.embed_content(
+  model="gemini-embedding-001",
+  contents="How do I get a driver's license/learner's permit?",
+  config=EmbedContentConfig(
+    task_type="RETRIEVAL_DOCUMENT",  # Optional
+    output_dimensionality=3072,  # Optional
+    title="Driver's License",  # Optional
+  ),
+)
+
+
+
+Function calling:
+from google.genai import types
+
+def get_current_weather(location: str) -> str:
+  """Returns the current weather.
+
+  Args:
+    location: The city and state, e.g. San Francisco, CA
+  """
+  return 'sunny'
+
+response = client.models.generate_content(
+  model='gemini-2.5-flash',
+  contents='What is the weather like in Boston?',
+  config=types.GenerateContentConfig(tools=[get_current_weather]),
+)
+
+
+
+Grounding:
+from google.genai import types
+from google.genai import Client
+
+client = Client(
+  vertexai=True,
+  project=GOOGLE_CLOUD_PROJECT,
+  location=GOOGLE_CLOUD_LOCATION
+)
+
+response = client.models.generate_content(
+  model='gemini-2.5-flash-exp',
+  contents='Why is the sky blue?',
+  config=types.GenerateContentConfig(
+  tools=[types.Tool(google_search=types.GoogleSearch())]),
+)
+
+
+
+
+Safety settings:
+from google.genai import types
+
+response = client.models.generate_content(
+  model='gemini-2.5-flash',
+  contents='Say something bad.',
+  config=types.GenerateContentConfig(
+    safety_settings=[
+      types.SafetySetting(
+        category='HARM_CATEGORY_HATE_SPEECH',
+        threshold='BLOCK_ONLY_HIGH',
+      )
+    ]
+  ),
+)
+
+
+
+Chat sessions:
+Synchronous:
+chat = client.chats.create(model='gemini-2.5-flash')
+response = chat.send_message('tell me a story')
+print(response.text)
+response = chat.send_message('summarize the story you told me in 1 sentence')
+print(response.text)
+
+
+Asynchronous:
+chat = client.aio.chats.create(model='gemini-2.5-flash')
+response = await chat.send_message('tell me a story')
+print(response.text)
+
+
+Synchronous streaming:
+chat = client.chats.create(model='gemini-2.5-flash')
+for chunk in chat.send_message_stream('tell me a story'):
+    print(chunk.text, end='')
+    
+
+Asynchronous streaming:
+chat = client.aio.chats.create(model='gemini-2.5-flash')
+async for chunk in await chat.send_message_stream('tell me a story'):
+    print(chunk.text, end='') # end='' is optional, for demo purposes.
+    
+    
+
+Multimodal inputs:
+from google import genai
+from google.genai.types import HttpOptions, Part
+
+client = genai.Client(http_options=HttpOptions(api_version="v1"))
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents=[
+        Part.from_uri(
+            file_uri="gs://cloud-samples-data/generative-ai/video/ad_copy_from_video.mp4",
+            mime_type="video/mp4",
+        ),
+        "What is in the video?",
+    ],
+)
+print(response.text)
+
+
+
+
+Text generation:
+response = client.models.generate_content(
+  model='gemini-2.5-flash', contents='Why is the sky blue?'
+)
+print(response.text)
+
+
+
+Async gen:
+response = await client.aio.models.generate_content(
+  model='gemini-2.5-flash', contents='Tell me a story in 300 words.'
+)
+
+print(response.text)
+
+
+
+Streaming:
+Synchronous streaming:
+for chunk in client.models.generate_content_stream(
+  model='gemini-2.5-flash', contents='Tell me a story in 300 words.'
+):
+  print(chunk.text, end='')
+
+
+
+Asynchronous streaming:
+async for chunk in await client.aio.models.generate_content_stream(
+  model='gemini-2.5-flash', contents='Tell me a story in 300 words.'
+):
+  print(chunk.text, end='')
+
+
+
+
+Image gen:
+from google.genai import types
+
+# Generate Image
+response1 = client.models.generate_images(
+    model='imagen-3.0-generate-002',
+    prompt='An umbrella in the foreground, and a rainy night sky in the background',
+    config=types.GenerateImagesConfig(
+        number_of_images=1,
+        include_rai_reason=True,
+        output_mime_type='image/jpeg',
+    ),
+)
+response1.generated_images[0].image.show()
+
+
+
+
+
+Controlled gen:
+response_schema = {
+  "type": "ARRAY",
+  "items": {
+    "type": "OBJECT",
+    "properties": {
+      "recipe_name": {"type": "STRING"},
+      "ingredients": {"type": "ARRAY", "items": {"type": "STRING"}},
+    },
+    "required": ["recipe_name", "ingredients"],
+  },
+}
+
+prompt = """
+  List a few popular cookie recipes.
+"""
+
+response = client.models.generate_content(
+  model="gemini-2.5-flash",
+  contents=prompt,
+  config={
+    "response_mime_type": "application/json",
+    "response_schema": response_schema,
+  },
+)
+
+
+
+
+Count Tokens
+response = client.models.count_tokens(
+    model='gemini-2.5-flash',
+    contents='why is the sky blue?',
+)
+print(response)
+
+
+
+
+Compute tokens
+response = client.models.compute_tokens(
+    model='gemini-2.5-flash',
+    contents='why is the sky blue?',
+)
+print(response)
