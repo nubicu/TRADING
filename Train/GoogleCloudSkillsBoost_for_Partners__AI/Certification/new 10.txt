@@ -1,0 +1,47 @@
+https://rsvp.withgoogle.com/events/partner-learning/partner-certification-academy
+
+https://partner.skills.google/paths/79?catalog_rank=%7B%22rank%22%3A7%2C%22num_filters%22%3A0%2C%22has_search%22%3Atrue%7D&search_id=58666943
+
+https://rsvp.withgoogle.com/events/partner-learning/pcse
+
+https://docs.google.com/forms/d/e/1FAIpQLSfSuKEE8cUQWj9sfak7QG9hpaljBC89Y22KoWMQFgoECZjzUg/viewform
+
+https://rsvp.withgoogle.com/events/partner-learning/class-schedule
+
+https://www.partneradvantage.goog/GCPPRM/s/partneradvantageportallogin?language=en_US
+
+https://cloud.google.com/about/locations/
+
+Edge Location- POP (Points of presence)- Google Front End Services!!
+
+reason for splitting Edge and CDN based on compared to AWS is because Google can provide better availability for GFE services and back end ops
+
+https://partner.cloudskillsboost.google/course_templates/397
+
+VPC- Virtual private Cloud- Networks in GCP
+
+virtualization of networks, like SoftwareDefinedNetwork
+
+Geneve Encapsulation Technology
+
+VPC- Logical Network in GCP- Overlay networks!!
+
+Network Virtualization- the ability to run your overlay networks over Google Global Fibre physical network (underlay)
+
+Is it possbile? In a Hub-and-Spoke Landing Zone setup with Shared VPCs each env Dev, Test, and Prod projects, how can I centrally route all outbound internet traffic through a Cloud NGFW in the Hub VPC—using VPC peering and Except routing  Google APIs.
+
+https://cloud.google.com/dns/docs/dnssec
+
+https://drive.google.com/file/d/115Z36nokE4pOZ7MwJWo4sE4VOctV9F7i/view?usp=drive_link -> demo local copy
+
+there are three ways for handshaking peering,vpn,shared vpc
+
+google internal technology is called Andromeda
+
+proxy = an intermediary that acts on behalf of another entity (such as a user or server) to mediate communication
+
+NetworkEndpointGroup - Group of services you want to put behind LoadBalancer!!
+
+https means on load balancer means need ssl otherwise url will not work
+
+

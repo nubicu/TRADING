@@ -1,0 +1,205 @@
+Femeia nu se pierde, ea devine o poezie in cel ce o iubeste.
+Nu e vina mea ca te iubesc. E vina ta ca ai tot ce imi lipsea.
+
+
+
+
+dacia bigster hybrid 1800 cmc 155 cp extreme
+Suzuki S-cross strong hybrid 1462 cmc 135 cp 140 V Luxus PRV: 29.980 euro cu TVA
+MG ZS Hybrid+ 1490 cmc GSI AT Exclusive 27.000 euro = 140.000 lei
+- nu are reglaj volan pe adancime
+- scaun cu suport lombar nereglabil
+Kia Sportage HEV 1598 cmc 210 cp T-GDI 6AT 4x2 GT line 36 136 euro cu TVA
+Kia Niro HEV Premium 37 460 euro
+opel frontera 1199 cmc 145 cp GS 26 206 euro cu TVA
+opel grandland 1199 cmc GS hybrid 145 cp  39 785 euro cu TVA
+hyundai kona
+hyundai tucson
+mg zs hybrid+
+
+tensorflow, api integration, aws, 
+
+Ishares bankshares 600
+CRWV CoreWeave (60$)
+NVO Novo Nordisk (50$)
+
+
+MP Materials ()
+UUUU Uranium ()
+USAR ()
+PPTA Perpetual Resources - only source of mined gold +
+antimony for ammunition ()
+CRML - tanbreez project  ()
+MTRN beryllium + alloys 5G+AI+chips (buy at 115$) - not on t212
+APLD ()
+SOFI ()
+TEMpus AI - pharma w FDA approval & AI ()
+RGTI (buy at 16$)
+UNP Union Pacific ()
+SAP SE (buy at 225 euro)
+ZTS zoetis ()
+ACN Accenture ()
+UPS ()
+TTD The Trade Desk (buy at 42$)
+QUBT (buy at )
+
+
+
+
+PORTOFOLIU BVB CU DIVID SI GROWTH STOCKS 
+Ciao, imi creezi un portofoliu bazat pe analiza stocurilor de pe BVB creand un tabel in care sa pui... 
+1. Pretul 
+2. val divid in procent si lei
+3. P/E
+4. Randamentul companiei in ult 5 si 10 ani Portof sa fie format din 4 si 5 stocuri cu divid mare si rand bun real in ult 5, 10 ani si vreo 6 stocuri short term max 6 -12 luni cu sanse de crestere mare 
+4.targetul posibl in. 6 si 12 luni
+
+
+
+crowdstrike
+zscaler
+alphabet
+ibm
+qtum
+
+
+BUY before NOVEMBER:
+SOUNDHOUND (10$ - 13$)
+ASTS (42$ - 45$)
+SYMBOTIC (45$) - Automate warehouses for Amazon using AI
+SMR (33$) NuScale Power
+ReZoLVe AI (6.7$) - earnings 1 OCT
+BigBearAI ()
+
+Nuburu Inc BURU (0.14)
+
+Space stocks:
+MDA
+RKLB
+Planet Labs PL
+
+LINK, ONDO, CRO, AERO, SUI, WXT, HYPE
+
+
+semiconductors: nxpi, entg, ter, qcom, adi, amat, lrcx, avgo, tsm, nvda
+next pltr: coda, swbi, pl
+
+LAC Lithium Americas Corp
+
+
+Best dividends: GAIN, ECC, OXSQ, ORC, EFC
+
+Ray Invests: LAES, SEALSQ, ZENA, INDI
+
+165.225.206.114
+ext ip: 34.168.132.120
+tableID: qwiklabs-gcp-01-180b0e45f920.bq_vpcflows.compute_googleapis_com_vpc_flows_20251007
+
+
+gcloud compute networks create privatenet --subnet-mode=custom
+gcloud compute networks subnets create privatesubnet-us --network=privatenet --region=us-central1 --range=172.16.0.0/24
+gcloud compute networks subnets create privatesubnet-notus --network=privatenet --region=asia-southeast1 --range=172.20.0.0/20
+
+gcloud compute firewall-rules create privatenet-allow-icmp-ssh-rdp --direction=INGRESS --priority=1000 --network=privatenet --action=ALLOW --rules=icmp,tcp:22,tcp:3389 --source-ranges=0.0.0.0/0
+
+gcloud compute instances create privatenet-us-vm --zone=us-central1-a --machine-type=e2-medium --subnet=privatesubnet-us
+
+management-us-vm external IP : 34.74.244.93         internal IP : 10.130.0.2
+mynet-notus-vm external IP   : 34.80.3.1            internal IP : 10.140.0.2
+mynet-us-vm external IP      : 34.138.239.251       internal IP : 10.142.0.2
+private-us-vm external IP    : 35.231.12.56         internal IP : 172.16.0.2
+
+gcloud compute ssh asia-client-vm --zone asia-east1-c --tunnel-through-iap
+
+spoke1 Int IP: 10.10.30.2   ext: 34.21.88.148
+spoke2 Int IP: 10.10.40.2   ext: 34.85.202.
+
+while true; do curl -m1 34.8.221.248; done
+34.8.221.248
+34.6.56.7
+
+
+default-vm1
+INTERNAL_IP: 10.132.0.2
+EXTERNAL_IP: 34.79.87.101
+mynet-vm1
+INTERNAL_IP: 10.132.0.2
+EXTERNAL_IP: 35.187.169.40
+mynet-vm2
+INTERNAL_IP: 10.128.0.2
+EXTERNAL_IP: 34.70.41.15
+
+
+
+DISCORD LINKS
+
+
+Bootcamp + Lifetime Discord
+- 6-Week Bootcamp with Corey
+- Lifetime Access to Discord
+- Lifetime Access to Trading Sessions (Mon & Thurs, 10:30am EST)
+- Lifetime Access to Corey’s Complete Options Trading Course
+
+
+Option 1:  $5k today only (Normally $8000)
+https://whop.com/checkout/plan_mypAFzRHefHcn?d2c=true
+
+Option 2: 2 installments of $2500
+https://whop.com/checkout/plan_5ovJ8ckzsG55e?d2c=true
+
+Titanium (1 Year Discord)
+- 1-Year Access to Discord
+- 1-Year Access to Trading Sessions (Mon & Thurs, 10:30am EST)
+- Lifetime Access to Corey’s Complete Options Trading Course
+
+
+Option 1: $3k
+https://whop.com/checkout/plan_Hs6lKXSedWNU8?d2c=true
+
+Option 2: 2 installments of $1500
+https://whop.com/checkout/plan_JJltuHRD8jHvM?d2c=true
+
+FREQUENTLY ASKED QUESTIONS
+
+How much do I need in my portfolio?
+We recommend $10,000 for best results
+
+Can I do this with a full-time job?
+Yes, it only takes about 1-2 hours a week of trading
+
+Is this for beginners or advanced?
+It works for both. If you’re a beginner, you will receive a course that teaches you everything you need to know to get started.
+
+What kind of trading (Options, Day, Swing, etc.)?
+Weekly & Monthly Options and Buying Shares
+
+
+What time are the Coaching Sessions?
+Mondays & Thursdays, 10:30am ET
+
+
+Are they recorded?
+Yes, everything is recorded for you to re-watch later
+
+When is the next bootcamp?
+Starts Thurs, Nov 13th @ 9pm ET
+
+When do I get access to Discord?
+Right after purchase, you will receive an email with link to Discord server.
+
+Do payment plans get the same access?
+Yes, all the same access snd you get access starting today
+
+Do payment plans, when is the next payment?
+First payment today, next payment in 30 days.
+
+
+Fidelity broker
+SERV init : 14.8 $ DCA on 12.6 $
+SoundHound: 8$
+
+Yes, Molecular Hydrogen is awesome for health, water and inhalation.
+
+echi
+shhi
+

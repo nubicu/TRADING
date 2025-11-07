@@ -1,0 +1,81 @@
+Need help? Email mailto://cloud-partner-training@google.com
+
+Monday session (22.09.2025)
+Please log in the partner learning portal:
+
+https://partner.cloudskillsboost.google/
+Using office account
+please do sign up / create new account if not registered with an account
+
+If already having existing account please sign in
+
+TEB link:
+https://goo.gle/build-with-vertex-ai
+
+Today's skill badge :
+https://partner.cloudskillsboost.google/paths/2294
+
+Survey link for today’s session:
+https://partner.cloudskillsboost.google/classrooms/31195/course_surveys/cloud-training-l2io16cn5i?preview=true
+
+
+
+Helpful resources
+
+
+https://github.com/GoogleCloudPlatform/generative-ai/tree/main
+
+https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/function-calling
+
+https://github.com/GoogleCloudPlatform/generative-ai/blob/main/gemini/function-calling/intro_function_calling.ipynb
+
+
+Practice LAB:
+https://partner.cloudskillsboost.google/catalog_lab/31120
+
+Challenge lab:
+https://partner.cloudskillsboost.google/paths/2294/course_templates/1299/labs/532460
+
+
+Wednesday session (24.09.2025)
+TEB link:
+https://rsvp.withgoogle.com/events/partner-learning/build-with-vertex-ai
+
+Today's skill badge :
+https://partner.cloudskillsboost.google/paths/2309
+
+Practice lab for this session:
+https://partner.cloudskillsboost.google/catalog_lab/32248
+
+Challenge lab for the session:
+https://partner.cloudskillsboost.google/paths/2309/course_templates/1292/labs/531996
+
+SynthID Detector - A new portal to help AI-generated content
+https://deepmind.google/science/synthid/
+
+
+Thursday session (25.09.2025)
+TEB link:
+https://goo.gle/build-with-vertex-ai
+
+Today's skill badge ( Learning path ) :
+https://partner.cloudskillsboost.google/paths/2310
+
+https://partner.cloudskillsboost.google/paths/2308
+
+https://partner.cloudskillsboost.google/catalog_lab/32242
+
+
+
+Friday session (26.09.2025)
+TEB link:
+https://goo.gle/build-with-vertex-ai
+
+Today's skill badge ( Learning path ) :
+https://partner.cloudskillsboost.google/paths/2311
+
+Practice lab for today:
+https://partner.cloudskillsboost.google/catalog_lab/31631
+
+Challenge lab:
+https://partner.cloudskillsboost.google/paths/2311/course_templates/1293
