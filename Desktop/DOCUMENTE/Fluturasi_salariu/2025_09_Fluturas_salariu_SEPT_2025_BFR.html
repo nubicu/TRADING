@@ -1,0 +1,728 @@
+<!--<!DOCTYPE html>-->
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Payslip</title>
+	<style type="text/css">
+		*:not([type=hidden]) {
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}*/
+
+		@page {
+			size: A4 portrait;
+		}
+
+		html {
+			margin: 1cm 1cm 2cm 2cm;
+			font-family: sans-serif;
+		}
+
+		.clearfix:before,
+		.clearfix:after {
+			content: " ";     /* 1 */
+			display: table;   /* 2 */
+		}
+
+		.clearfix:after {
+			clear: both;
+		}
+
+		.payslip-viewer-master-container {
+		}
+
+			.payslip-viewer-master-container .view-filter {
+				margin: 0 0 -1px 0;
+			}
+
+		.payslip-container {
+		}
+
+		.payslip-contents {
+			overflow-y: auto;
+			border: solid 1px #ddd;
+			/*background:#f4f4f4;*/
+		}
+
+		/* When hosted in an entity view -----------------------------------------------------------------------*/
+
+		.dashboard-pane-list-rows .payslip-contents {
+			border: none;
+		}
+
+		/*------------------------------------------------------------------------------------------------------*/
+
+		.payslip-flyer {
+			background: #fafafa;
+			border: solid 1px #fff;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			overflow: hidden;
+			width: 16cm;
+			margin: 1cm auto;
+			padding: 30px 30px 60px 30px;
+			position: relative;
+		}
+
+		.payslip-toolbar {
+			position: absolute;
+			top: 110px;
+			right: 30px;
+			width: 200px;
+			height: 40px;
+			text-align: right;
+			z-index: 1000;
+			opacity: 0;
+		}
+
+			.payslip-toolbar form {
+				margin: 0;
+				padding: 0;
+				display: inline;
+			}
+
+			.payslip-toolbar .payslip-command {
+				border: none;
+				background: #0094ff;
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				color: white;
+				margin: 0;
+				padding: 0;
+				border-radius: 100%;
+			}
+
+				.payslip-toolbar .payslip-command:hover {
+					background: #5fbcff;
+				}
+
+				.payslip-toolbar .payslip-command .fa {
+					line-height: 40px;
+					text-align: center;
+					display: block;
+					margin: 0;
+					padding: 0;
+				}
+
+		.payslip-flyer:hover .payslip-toolbar {
+			opacity: 1;
+		}
+
+		.payslip-year-watermark {
+			position: absolute;
+			color: rgba(0, 0, 0, 0.05);
+			font-size: 190px;
+			text-align: right;
+			bottom: 0;
+			left: 0;
+			right: 20px;
+			height: 130px;
+			line-height: 130px;
+			font-weight: bold;
+			z-index: 0;
+			pointer-events: none;
+		}
+
+		.payslip-month-watermark {
+			position: absolute;
+			color: rgba(0, 0, 0, 0.1);
+			font-size: 32px;
+			text-align: left;
+			transform: rotate(270deg);
+			transform-origin: 0 100%;
+			left: 100%;
+			bottom: 0;
+			font-weight: normal;
+			text-transform: uppercase;
+			z-index: 0;
+			pointer-events: none;
+		}
+
+		.payslip-header {
+			overflow: hidden;
+			position: relative;
+			z-index: 1;
+		}
+
+			.payslip-header hr {
+				clear: both;
+				border: none;
+				border-top: double 3px #ddd;
+				margin: 20px 0;
+			}
+
+		.payslip-header-person {
+			margin-right: 200px;
+			margin-bottom: 7px;
+			font-size: 26px;
+			font-weight: bold;
+			color: #0094ff;
+			flex-grow: 1;
+		}
+
+		.payslip-header-company {
+			text-transform: uppercase;
+			font-size: 16px;
+			color: #aaa;
+			display: block;
+			margin-right: 200px;
+		}
+
+		.payslip-header-month {
+			width: 180px;
+			float: right;
+			text-align: right;
+			height: 50px;
+			flex-grow: 0;
+		}
+
+		.payslip-year {
+			font-size: 26px;
+			font-weight: bold;
+			display: block;
+			margin-bottom: 7px;
+		}
+
+		.payslip-month {
+			text-transform: uppercase;
+			font-size: 16px;
+			color: #aaa;
+			display: block;
+		}
+
+		.payslip-header-entry {
+			line-height: 1.5em;
+		}
+
+		.payslip-header-entry-caption {
+			color: #888;
+		}
+
+			.payslip-header-entry-caption::after {
+				content: ':';
+			}
+
+		.payslip-header-entry-value {
+			color: #555;
+			font-weight: bold;
+		}
+
+		.payslip-sections-container {
+			position: relative;
+			z-index: 1;
+		}
+
+        .payslip-section-container {
+            border: solid 1px #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.65);
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+			.payslip-section-container:first-child {
+				margin-top: 20px;
+			}
+
+			.payslip-section-container:last-child {
+				margin-bottom: 0;
+			}
+
+		table.payslip-section-table {
+			width: 100%;
+			border-collapse: collapse;
+			border: none;
+			margin: 0;
+		}
+
+			table.payslip-section-table thead {
+			}
+
+				table.payslip-section-table thead tr {
+					border-bottom: solid 1px #ddd;
+				}
+
+				table.payslip-section-table thead th {
+					text-align: left;
+					font-weight: bold;
+					padding: 5px 10px;
+					border-right: solid 1px #ddd;
+					text-transform: uppercase;
+					white-space: normal;
+				}
+
+					table.payslip-section-table thead th:last-child,
+					table.payslip-section-table thead th:first-child {
+						border-right: none;
+					}
+
+			table.payslip-section-table tbody td {
+				text-align: left;
+				padding: 5px 10px;
+				border-right: solid 1px #ddd;
+			}
+
+				table.payslip-section-table tbody td:last-child,
+				table.payslip-section-table tbody td:first-child {
+					border-right: none;
+				}
+
+			table.payslip-section-table thead th.payslip-value-cell {
+				text-align: right;
+				font-weight: bold;
+				width: 100px;
+			}
+
+			table.payslip-section-table tbody td.payslip-value-cell {
+				text-align: right;
+				width: 100px;
+				color: #0094ff;
+				font-weight: bold;
+			}
+
+			/* Special entry roles -----------------------------------------------------------------------------*/
+
+			table.payslip-section-table tbody tr[data-entry-role='RP'] {
+				border-top: solid 1px #ddd;
+				font-weight: bold;
+			}
+
+				table.payslip-section-table tbody tr[data-entry-role='RP']:first-child {
+					border-top: none;
+				}
+
+				table.payslip-section-table tbody tr[data-entry-role='RP'] td {
+					border: none;
+				}
+
+
+			table.payslip-section-table tbody tr[data-entry-role='SN'] {
+				border-top: solid 1px #ddd;
+				font-weight: bold;
+			}
+
+				table.payslip-section-table tbody tr[data-entry-role='SN']:first-child {
+					border-top: none;
+				}
+
+				table.payslip-section-table tbody tr[data-entry-role='SN'] td {
+					border: none;
+				}
+
+			table.payslip-section-table tbody tr[data-entry-role='VB'] {
+				border-top: solid 1px #ddd;
+				font-weight: bold;
+			}
+
+				table.payslip-section-table tbody tr[data-entry-role='VB']:first-child {
+					border-top: none;
+				}
+
+				table.payslip-section-table tbody tr[data-entry-role='VB'] td {
+					border: none;
+				}
+
+			table.payslip-section-table tbody tr[data-entry-role='EB'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='EN'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='RC'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='ST'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='C'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='M'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='T'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='VN'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='DP'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='ED'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='IL'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='IM'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='AV'] {
+			}
+
+			table.payslip-section-table tbody tr[data-entry-role='DB'] {
+			}
+
+		.payslip-email-container {
+			margin-top: 25px;
+		}
+
+		/*------------------------------------------------------------------------------------------------------*/
+
+		/* Custom appearance when hosted in an entity child view having 'no-ui' template (StyleCode) -----------*/
+
+		.dashboard-pane-list.custom-no-ui .dashboard-pane-list-container .payslip-flyer {
+			margin: 0;
+			box-shadow: none;
+			border: solid 1px #ddd;
+		}
+
+		/*------------------------------------------------------------------------------------------------------*/
+
+		.payslip-header-titles-container {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			align-content: center;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		@media only screen and (max-width: 600px) {
+			* {
+				white-space: nowrap;
+				-webkit-user-select: none;
+			}
+
+			html * {
+				box-sizing: border-box;
+				font-size: 12px;
+			}
+
+			body, html {
+				margin: 0;
+				padding: 0;
+			}
+
+			.payslip-viewer-master-container {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+			}
+
+			.payslip-year-watermark {
+				font-size: 110px;
+				height: 125px;
+				line-height: 175px;
+			}
+
+			.payslip-container {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+			}
+
+			.payslip-contents {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+			}
+
+			.payslip-flyer {
+				width: 100%;
+				margin: 0;
+				border: none;
+				box-shadow: none;
+				border-radius: 0;
+				padding: 7px;
+			}
+
+			.payslip-header hr {
+				margin: 5px 0 15px 0;
+			}
+
+			.payslip-header-person {
+				flex-grow: 1;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				font-size: 18px;
+				white-space: normal;
+				color: #a4c3e6;
+			}
+
+			.payslip-header-month {
+				flex-grrow: 0;
+				margin: 0;
+				padding: 0;
+			}
+
+			table.payslip-section-table tbody td.payslip-value-cell {
+				color: #a4c3e6;
+			}
+
+			html .payslip-section-container {
+				padding: 5px;
+			}
+
+				html .payslip-section-container td {
+					font-size: 12px;
+				}
+
+			.payslip-year {
+				font-size: 18px;
+			}
+
+			.payslip-month {
+				font-size: 14px;
+				color: #888;
+			}
+
+			.payslip-header-titles-container {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				align-content: center;
+				align-items: center;
+				justify-content: space-between;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="payslip-viewer-master-container clearfix">
+		<div class="payslip-container clearfix">
+			<div class="payslip-contents clearfix">
+				<div class="payslip-flyer clearfix">
+					<div class="payslip-year-watermark">2025</div>
+					<div class="payslip-month-watermark">Septembrie</div>
+					<div class="payslip-header clearfix">
+						<div class="payslip-header-titles-container">
+							<div class="payslip-header-person">BUZABRICI-FILIPESCU ROBERT</div>
+							<div class="payslip-header-month">
+								<span class="payslip-year">2025</span>
+								<span class="payslip-month">Septembrie</span>
+							</div>
+							
+						</div>
+						<hr class="under-header-line">
+						<div class="payslip-header-entry">
+							<span class="payslip-header-entry-caption">Marca</span>
+							<span class="payslip-header-entry-value">1748670</span>
+						</div>
+						<div class="payslip-header-entry">
+							<span class="payslip-header-entry-caption">Punct de lucru</span>
+							<span class="payslip-header-entry-value">CSS </span>
+						</div>
+						<div class="payslip-header-entry">
+							<span class="payslip-header-entry-caption">Departament</span>
+							<span class="payslip-header-entry-value">SW Embedded</span>
+						</div>
+						<div class="payslip-header-entry">
+							<span class="payslip-header-entry-caption">Functie</span>
+							<span class="payslip-header-entry-value">PROGRAMATOR</span>
+						</div>
+						
+
+					</div>
+					<div class="payslip-sections-container clearfix">
+						
+						<div class="payslip-section-container">
+							<table class="payslip-section-table">
+								<thead>
+									<tr>
+										<th>Drepturi salariale</th>
+										
+										<th class="payslip-value-cell">Nr.</th>
+										<th class="payslip-value-cell">Baza calcul</th>
+										<th class="payslip-value-cell">RON</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Ore regie</td>
+										
+										<td class="payslip-value-cell">176</td>
+										<td class="payslip-value-cell">142,39</td>
+										<td class="payslip-value-cell">25.061</td>
+									</tr><tr>
+										<td>Tichete masa  (+)</td>
+										
+										<td class="payslip-value-cell">22</td>
+										<td class="payslip-value-cell">30</td>
+										<td class="payslip-value-cell">660</td>
+									</tr><tr>
+										<td>Venit brut</td>
+										
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">25.721</td>
+									</tr><tr>
+										<td>Asigurare/abon.med. (AF) (+)</td>
+										
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">167</td>
+									</tr><tr>
+										<td>Venit brut A.F.</td>
+										
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">167</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div><div class="payslip-sections-container clearfix">
+						
+						<div class="payslip-section-container">
+							<table class="payslip-section-table">
+								<thead>
+									<tr>
+										<th>Taxe si impozite</th>
+										<th class="payslip-value-cell">%</th>
+										<th class="payslip-value-cell">Nr.</th>
+										<th class="payslip-value-cell">Baza calcul</th>
+										<th class="payslip-value-cell">RON</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>CASS 10%</td>
+										<td class="payslip-value-cell">10 %</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">25721</td>
+										<td class="payslip-value-cell">2.572</td>
+									</tr><tr>
+										<td>CAS 25%</td>
+										<td class="payslip-value-cell">25 %</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">25061</td>
+										<td class="payslip-value-cell">6.265</td>
+									</tr><tr>
+										<td>CAS CM</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">0</td>
+										<td class="payslip-value-cell">0</td>
+									</tr><tr>
+										<td>CAS 25% (OUG 114)</td>
+										<td class="payslip-value-cell">25 %</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">0</td>
+										<td class="payslip-value-cell">0</td>
+									</tr><tr>
+										<td>Venit net</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">17.051</td>
+									</tr><tr>
+										<td>Deducere de baza</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">0</td>
+									</tr><tr>
+										<td>Deducere suplimentara</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">0</td>
+									</tr><tr>
+										<td>Deducere aplicata</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">0</td>
+									</tr><tr>
+										<td>Venit neimpozabil</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">167</td>
+									</tr><tr>
+										<td>Venit impozabil</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">16.884</td>
+									</tr><tr>
+										<td>Impozit</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">1.688</td>
+									</tr><tr>
+										<td>Tichete masa  (-)</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">22</td>
+										<td class="payslip-value-cell">30</td>
+										<td class="payslip-value-cell">660</td>
+									</tr><tr>
+										<td>Asigurare/abon.med. (-)</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">167</td>
+									</tr><tr>
+										<td>Salariu net</td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell"></td>
+										<td class="payslip-value-cell">14.536</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div><div class="payslip-sections-container clearfix">
+						
+						<div class="payslip-section-container">
+							<table class="payslip-section-table">
+								<thead>
+									<tr>
+										<th>Avansuri sau retineri</th>
+										
+										
+										
+										<th class="payslip-value-cell">RON</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Abon.medicale depen.</td>
+										
+										
+										
+										<td class="payslip-value-cell">206</td>
+									</tr><tr>
+										<td>Platit</td>
+										
+										
+										
+										<td class="payslip-value-cell">14.330</td>
+									</tr><tr>
+										<td>Rest plata</td>
+										
+										
+										
+										<td class="payslip-value-cell">0</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>
