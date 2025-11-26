@@ -2,12 +2,12 @@
 import calendar
 # Create a plain text calendar
 tc = calendar.TextCalendar(calendar.MONDAY)
-cal = tc.formatmonth(2020, 4, 0, 0)
+cal = tc.formatmonth(2025, 11, 0, 0)
 print(cal)
 
 # Create an HTML formatted calendar
 hc = calendar.HTMLCalendar(calendar.MONDAY)
-cal = hc.formatmonth(2020, 4)
+cal = hc.formatmonth(2025, 11)
 print(cal)
 
 # loop over the days of a month
@@ -27,7 +27,7 @@ print
 # Figure out what days would be for each month, we can use the script as shown here
 for month in range(1, 13):
 # It retrieves a list of weeks that represent the month
-    mycal = calendar.monthcalendar(2021, month)
+    mycal = calendar.monthcalendar(2026, month)
 # The second MONDAY has to be within the first two weeks
     week1 = mycal[1]
     week2 = mycal[2]
