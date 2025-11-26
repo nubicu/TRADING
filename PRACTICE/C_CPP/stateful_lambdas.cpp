@@ -2,7 +2,7 @@
 
 int main()
 {
-  int i = 1;
+  int i = 4;
   auto l = [i]() mutable { return ++i; };
 
   std::cout << l() << '\n';
