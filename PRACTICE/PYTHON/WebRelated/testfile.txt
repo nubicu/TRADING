@@ -1,0 +1,153 @@
+result code: 200<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>OLX</title>
+    <meta name="description" content="Coś się nie zgadza">
+    <meta name="author" content="OLX">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <style type="text/css">
+    html, body, div, span, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    abbr, address, cite, code,
+    del, dfn, em, img, ins, kbd, q, samp,
+    small, strong, sub, sup, var,
+    b, i,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section, summary,
+    time, mark, audio, video {
+        margin:0;
+        padding:0;
+        border:0;
+        outline:0;
+        font-size:100%;
+        vertical-align:baseline;
+        background:transparent;
+    }
+    html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var,
+    b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header,
+    hgroup, menu, nav, section, summary, time, mark, audio, video {
+        margin:0;
+        padding:0;
+        border:0;
+        outline:0;
+        font-size:100%;
+        vertical-align:baseline;
+        background:transparent;
+    }
+    body{
+        font-family: "Lato",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        background-color: #fff;
+    }
+    h1{
+        font-size:22px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    p {
+        margin: 0 0 15px;
+    }
+    p img{
+        vertical-align:top;
+    }
+    a {
+        margin:0;
+        padding:0;
+        font-size:100%;
+        vertical-align:baseline;
+        background:transparent;
+        color:#2fa5d5;
+    }
+    .container{
+        padding-left:15px;
+        padding-right:15px;
+        margin-right: auto;
+        margin-left: auto;
+        position:relative;
+    }
+    .header{
+        height:60px;
+        border-bottom:1px solid #f0f0f0;
+    }
+    .header__logo{
+        width:70px;
+        height:70px;
+        background:url(failover-ro/logo.svg) no-repeat 0 0;
+        position:absolute;
+        left:10px;
+        top:4px;
+        text-indent:-1000em;
+    }
+    .main{
+        text-align:center;
+    }
+    .message{
+        max-width:600px;
+        margin:30px auto 50px;
+    }
+    .message__img{
+        padding-left:28px;
+    }
+    .message__hash{
+        font-size:16px;
+        font-weight:bold;
+    }
+    @media (min-width: 768px){
+        .container {
+            width: 750px;
+        }
+        body{
+            font-size: 16px;
+        }
+        h1{
+            font-size:28px;
+            margin-top:30px;
+            margin-bottom:30px;
+        }
+        p {
+            margin: 0px 0 20px;
+        }
+        .message__hash{
+            font-size:20px;
+        }
+    }
+    @media (min-width: 992px){
+        .container {
+            width: 970px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__logo">OLX</div>
+        </div>
+    </header>
+    <main class="main">
+        <div class="container">
+            <div class="message">
+                <div class="message__img">
+                    <img src="failover-ro/500.svg">
+                </div>
+                <h1>Sistemul nostru a detectat o problema</h1>
+                <p><strong>Adresa IP folosita de tine pare sa fie asociata unei surse de trafic cu siguranta redusa.</strong></p>
+                <p>Talvez seja apenas um erro, por isso tente entrar no site dentro de 10 minutos. Se o problema persistir, contacte-nos:</p>
+                <p><img width="117" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOoAAAAfCAYAAADpy1HkAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDM5RTlDRUMwMEU5MTFFN0EwRkVEOUU2NDlDNjRCNkUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDM5RTlDRUQwMEU5MTFFN0EwRkVEOUU2NDlDNjRCNkUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0MzlFOUNFQTAwRTkxMUU3QTBGRUQ5RTY0OUM2NEI2RSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0MzlFOUNFQjAwRTkxMUU3QTBGRUQ5RTY0OUM2NEI2RSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtPzgbMAAAgFSURBVHja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"></p>
+                <p>Providencie no formulário a seguinte referência</p>
+                <span id="ctl00_mainContentPlaceHolder_lblInvalidRequest">
+                OLX: 18.14131002.1569346879.98c11b
+                </span>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
