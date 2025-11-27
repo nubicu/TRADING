@@ -1,3 +1,3 @@
-# PLAYGROUND
+# Trading
 
-Practice, learn, apply
+Materiale informative trading
