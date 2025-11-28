@@ -35,9 +35,8 @@ def get_yt_url(url, quality, ytdl_path, logger):
                         '#-o#' + ytdl_path)
                     update_time = str(int(time.time()))
                     if not os.path.exists(ytdl_stamp):
-                        f = open(ytdl_stamp, 'w')
-                        f.write(update_time)
-                        f.close()
+                        with open(ytdl_stamp, 'w', encoding='utf-8') as f:
+                            f.write(update_time)
                 else:
                     send_notification('youtube-dl path does not exists!')
                     youtube_dl = 'youtube-dl'
@@ -128,7 +127,8 @@ def get_yt_url(url, quality, ytdl_path, logger):
         updated_already = False
         if ytdl_path.endswith('ytdl') or ytdl_path.endswith('ytdl.exe'):
             if os.path.exists(ytdl_stamp):
-                content = open(ytdl_stamp, 'r').read()
+                with open(ytdl_stamp, 'r', encoding='utf-8') as fh:
+                    content = fh.read()
                 try:
                     old_time = int(content)
                 except Exception as e:
@@ -150,9 +150,8 @@ def get_yt_url(url, quality, ytdl_path, logger):
                     'Now Try Playing Video Again!')
                 update_time = str(int(time.time()))
                 if not os.path.exists(ytdl_stamp):
-                    f = open(ytdl_stamp, 'w')
-                    f.write(update_time)
-                    f.close()
+                    with open(ytdl_stamp, 'w', encoding='utf-8') as f:
+                        f.write(update_time)
             else:
                 send_notification('youtube-dl is already newest version')
 

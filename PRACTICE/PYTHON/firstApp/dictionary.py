@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
 Dict = {'Tim': 18, 'Charlie': 12, 'Tiffany': 22, 'Robert': 25}
+print("Initial dictionary: ", Dict)
 print(Dict['Tiffany'])
 Dict.update({'Sarah': 9})
 del Dict['Charlie']
+Dict.update({'Robert': 39})
 print(Dict)
 print("Length : %d" % len(Dict))
 

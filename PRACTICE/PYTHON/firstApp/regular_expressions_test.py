@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import re
+from pathlib import Path
 
 pattern = '^.*?\((\d+)\).*?$'
 # ^     signifies the start of the string
@@ -18,12 +19,12 @@ if result:
 else:
     print('No match')
 
-f = open('sample.txt', 'r')
-emails = re.findall(r'[\w\.-]+@[\w\.-]+', f.read())
+data_file = Path(__file__).parent / 'sample.txt'
+with data_file.open('r', encoding='utf-8') as f:
+    emails = re.findall(r'[\w\.-]+@[\w\.-]+', f.read())
 print("Found " + str(len(emails)) + " emails in file")
 for email in emails:
     print(email)
-f.close()
 
 text = "software"
 print(text[1:3])  # prints values in interval [1,3)

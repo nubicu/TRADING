@@ -4,13 +4,15 @@ import os
 import datetime
 import time
 from os import path
+from pathlib import Path
 
 
 def main():
     # make a duplicate of an existing file
-    if path.exists("sample.txt"):
-    # get the path to the file in the current directory
-        src = path.realpath("sample.txt")
+    data_file = Path(__file__).parent / 'sample.txt'
+    if data_file.exists():
+        # get the absolute path to the file next to this script
+        src = str(data_file.resolve())
 
     #separate the path from the filter
     head, tail = path.split(src)
@@ -25,14 +27,15 @@ def main():
     #copy over the permissions, modification
     shutil.copystat(src, dst)
 
-    # Get the modification time
-    t = time.ctime(path.getmtime("sample.txt.bak"))
+    # Get the modification time for the backup file
+    t = time.ctime(path.getmtime(dst))
     print(t)
-    print(datetime.datetime.fromtimestamp(path.getmtime("sample.txt.bak")))
+    print(datetime.datetime.fromtimestamp(path.getmtime(dst)))
 
-    if path.exists("sample.txt.bk"):
-        os.remove("sample.txt.bk")
-    os.rename('sample.txt.bak', 'sample.txt.bk')
+    bk = src + ".bk"
+    if path.exists(bk):
+        os.remove(bk)
+    os.rename(dst, bk)
 
 if __name__ == "__main__":
     main()
