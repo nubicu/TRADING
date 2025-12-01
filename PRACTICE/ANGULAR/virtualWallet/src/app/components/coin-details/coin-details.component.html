@@ -1,0 +1,87 @@
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+  
+      <!-- Info Column -->
+      <ng-container matColumnDef="info">
+        <th mat-header-cell *matHeaderCellDef> Info | </th>
+        <td mat-cell *matCellDef="let element">
+            <mat-icon [matMenuTriggerFor]="menu"
+            (click)="setSelectedCoin(element)"
+            class="info-icon"
+            aria-hidden="false" 
+            aria-label="Info icon">info</mat-icon>
+        </td>
+      </ng-container>
+  
+      <!-- Image Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Image | </th>
+        <td mat-cell *matCellDef="let element"> 
+            <img [src]="element.image" width="25" height="25" />
+        </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name | </th>
+        <td mat-cell *matCellDef="let element"> {{ element.name }}  </td>
+      </ng-container>
+  
+      <!-- Current Price Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Symbol | </th>
+        <td mat-cell *matCellDef="let element"> {{ element.symbol }} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="current_price">
+        <th mat-header-cell *matHeaderCellDef> Current Price | </th>
+        <td mat-cell *matCellDef="let element"> {{ element.current_price }} </td>
+      </ng-container>
+
+      <!-- Last Date Column -->
+      <ng-container matColumnDef="last_updated">
+        <th mat-header-cell *matHeaderCellDef> Last Date | </th>
+        <td mat-cell *matCellDef="let element"> {{ element.last_updated | date: "short" }} </td>
+      </ng-container>
+
+      <!-- Favorites Column -->
+      <ng-container matColumnDef="favorites">
+        <th mat-header-cell *matHeaderCellDef> Fav | </th>
+        <td mat-cell *matCellDef="let element">
+            <mat-icon class="favorite-icon" (click)="setFavorite(element)">
+                {{ favoritesSet.has(element.id) ? 'star' : 'star_outline' }} </mat-icon>
+
+            <mat-icon (click)="setSelectedCoin(element)">
+              {{ 'bar_chart' }}
+            </mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[20, 50]"
+                   showFirstLastButtons 
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+    <mat-menu #menu="matMenu">
+      <div *ngIf="selectedCoin" class="info-container">
+        <div>
+          <p><strong>Id:</strong> {{ selectedCoin.id }}</p>
+          <p><strong>Symbol:</strong> {{ selectedCoin.symbol }}</p>
+          <p><strong>Name:</strong> {{ selectedCoin.name }}</p>
+          <p><strong>Current Price:</strong> {{ selectedCoin.current_price }}</p>
+          <p><strong>Last Update:</strong> {{ selectedCoin.last_updated }}</p>
+          <p><strong>My currency:</strong> {{ selectedCoin.my_currency }}</p>
+        </div>
+        <div>
+          <p><strong>Low 24h:</strong> {{ selectedCoin.low_24h }}</p>
+          <p><strong>High 24h:</strong> {{ selectedCoin.high_24h }}</p>
+          <p><strong>Total Volume:</strong> {{ selectedCoin.total_volume }}</p>
+          <p><strong>Price Change:</strong> {{ selectedCoin.price_change_24h }}</p>
+        </div>
+      </div>
+    </mat-menu>
+  </div>

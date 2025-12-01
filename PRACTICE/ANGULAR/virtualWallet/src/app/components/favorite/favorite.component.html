@@ -1,0 +1,16 @@
+<mat-card class="favorite-card">
+  <mat-card-title>
+    {{ coin.name }}
+  </mat-card-title>
+  <mat-card-subtitle>
+    {{ coin.symbol }} / USD
+  </mat-card-subtitle>
+  <mat-card-content>
+    <div [ngClass]="coin.price_change_percentage_24h > 0 ? 'green' : 'red'" class="coin-price">
+      {{coin.price_change_percentage_24h.toFixed(2)}} %
+    </div>
+    <div>
+      <strong> $ {{ coin.current_price }} / $ {{ coin.my_currency!.toFixed(2) }} </strong>
+    </div>
+  </mat-card-content>
+</mat-card>

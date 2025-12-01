@@ -1,0 +1,31 @@
+.table-container table {
+    width: 100%;
+  }
+  
+  :host {
+      width: 55%;
+  }
+  
+  .mat-row .mat-cell {
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+  }
+  
+  .mat-row:hover .mat-cell {
+      border-color: black;
+  }
+  
+  .info-icon {
+      color: blue;
+  }
+  
+  .favorite-icon {
+      color: orange;
+  }
+  
+  .info-container {
+      display: flex;
+      margin: 16px;
+      justify-content: center;
+      align-items: center;
+  }

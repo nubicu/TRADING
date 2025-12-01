@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+}
+
+:host {
+    margin: 24px 0;
+}
+
+.demo-chart {
+    width: 600px;
+}

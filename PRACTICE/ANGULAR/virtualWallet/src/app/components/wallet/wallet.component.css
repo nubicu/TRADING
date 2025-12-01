@@ -1,0 +1,23 @@
+.wallet-icon {
+    color: darkgoldenrod;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .card-container-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .over-price {
+    color: red;
+  }
+  
+  .card-button-actions {
+    display: flex;
+    justify-content: space-between;
+  }

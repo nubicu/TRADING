@@ -1,0 +1,18 @@
+.transaction-card
+{
+  margin: 10px;
+}
+.transaction-table{
+  width: 100%;
+}
+.filter-width{
+  width:40%;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+.filter-grid-items{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

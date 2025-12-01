@@ -1,0 +1,29 @@
+:host {
+    width: 100%;
+    display: flex;
+  }
+  
+  .coin-price {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    font-weight: bold;
+  }
+  
+  .mat-card-subtitle, .mat-card-title {
+    margin-bottom: 0;
+  }
+  
+  .green {
+    color: lightgreen;
+    font-weight: bold;
+  }
+  
+  .red {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .favorite-card {
+    margin: 4px;
+  }

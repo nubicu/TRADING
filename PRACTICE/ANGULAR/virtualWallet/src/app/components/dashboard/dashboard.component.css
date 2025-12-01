@@ -1,0 +1,15 @@
+#dashboard {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 24px 0;
+    padding: 0 0 100px 0;
+}
+
+.info-container {
+    width: 40%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}

@@ -1,0 +1,5 @@
+<div id="header-content">
+    <img id="logo-img" routerLink="/dashboard" src="assets/Bitcoin-safe-dial.jpg">
+    <app-favorites [coins]="coins"></app-favorites>
+    <app-current-currency *ngIf="showCurrency"></app-current-currency>
+</div>

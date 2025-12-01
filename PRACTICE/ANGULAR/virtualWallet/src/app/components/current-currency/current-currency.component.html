@@ -1,0 +1,23 @@
+<mat-card class="add-money-card">
+  <mat-card-content>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Add Money</mat-label>
+      <input
+        matInput
+        type="number"
+        min="0"
+        #money
+        placeholder="Ex. 1000"
+        value="0"
+      />
+    </mat-form-field>
+    <div id="but-container">
+      <button id="but-add" mat-raised-button color="primary" (click)="addMoneyToWallet(money)">
+        Add
+      </button>
+      <button id="but-remove" mat-raised-button color="secondary" (click)="removeMoneyFromWallet(money)">
+        Remove
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
