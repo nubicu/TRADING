@@ -65,6 +65,20 @@ def radical(nr) -> tuple[int, int]:
     rp = int(round(r,2) * 100) % 100
     return ip, rp
 
+'''
+Scrieti o functie care primete ca parametru un nr intreg N
+Funtia va returna radacina patrata a nr N, cu 30 de zecimale
+Nu se folosesc functii de librarie, ci doar calcule matematice pe baza de adunare, scadere, inmultire, impartire
+Daca este necesar, unele calcule se pot muta in functii separate
+'''
+def radical_30z(n: int) -> str:
+    # Metoda Babyloniana pentru calculul radicalului
+    guess = n / 2.0
+    for _ in range(100):
+        guess = (guess + n / guess) / 2.0
+    # Formatare la 30 de zecimale
+    return f"{guess:.30f}"
+
 def ID():
     s_nr = input("Introduceti numarul: ")
     print(f"Numarul introdus este {s_nr}")
@@ -128,21 +142,28 @@ def main():
     structura_program()
     structura_program()
     structura_program()
-    print(f"programul a fost apelat de {counter} ori")
+#    print(f"programul a fost apelat de {counter} ori")
     
-    print("Radical -------------")
     print(" ")
+    print("Radical -------------")
     i, r = radical(2)
     print(i, r)
     i, _ = radical(49)
     print(i)
 
-    print("Input/Output -------------")
     print(" ")
-    ID()
+    print("Radical 30 zecimale -------------")
+    rez = radical_30z(2)
+    print(rez)
+    rez = radical_30z(49)
+    print(rez)
 
-    print("Parametri -------------")
     print(" ")
+#    print("Input/Output -------------")
+#    ID()
+
+    print(" ")
+    print("Parametri -------------")
     r0 = params1(4.5, 15)
     print(r0)
     r1 = params1(15, 20)
