@@ -26,7 +26,7 @@ def numara(propozitie):
             count += 1
     return count
 
-# Exemplu de utilizare
+# Test implementare
 formateaza("abc 012")
 # Output:
 # 616263

@@ -142,7 +142,7 @@ def main():
     structura_program()
     structura_program()
     structura_program()
-#    print(f"programul a fost apelat de {counter} ori")
+    print(f"programul a fost apelat de {counter} ori")
     
     print(" ")
     print("Radical -------------")
@@ -159,8 +159,8 @@ def main():
     print(rez)
 
     print(" ")
-#    print("Input/Output -------------")
-#    ID()
+    print("Input/Output -------------")
+    ID()
 
     print(" ")
     print("Parametri -------------")
