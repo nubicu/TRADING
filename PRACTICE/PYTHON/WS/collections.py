@@ -1,5 +1,4 @@
 # Python collections module practice file
-# from collections import Counter, defaultdict, namedtuple, deque
 
 # integer index
 list_properties : list  = ["ordered", "changeable", "collection", "duplicates"]
@@ -33,3 +32,31 @@ by = input("What's your birth year? ")
 CURRENT_YEAR = 2025
 age = CURRENT_YEAR - int(by)
 print(name + ", you are " + str(age) + " years old in " + str(CURRENT_YEAR) + ".")
+
+'''
+Pentru o lista de numere, scrieti o functie care gaseste si returneaza
+valoarea maxima si numarul de aparitii a acesteia.
+'''
+in_list = [1.0, 2.33, 3, 4, 5, 1, 3, 5, 2, 4, 5, 1]
+def max_and_count(numbers: list[float]) -> tuple[float, int]:
+    if not numbers:
+        return None, 0
+    max_value = max(numbers)
+    count = numbers.count(max_value)
+    return max_value, count
+
+max_val, occurrences = max_and_count(in_list)
+
+'''
+Scrie o functie care verifica daca un text este ordonat la nivelul fiecarui caracter.
+'''
+def is_ordered(text: str) -> bool:
+    propozitie = text.replace(" ", "")
+    clone = "".join(sorted(propozitie))
+    return propozitie == clone
+
+print(f"Max value: {max_val}, Occurrences: {occurrences}")
+test_text = "abc de"
+print(f"Is the text '{test_text}' ordered? {is_ordered(test_text)}")
+test_text2 = "edc ba"
+print(f"Is the text '{test_text2}' ordered? {is_ordered(test_text2)}")
