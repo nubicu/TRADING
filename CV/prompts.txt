@@ -7,9 +7,9 @@ Using the inputs below, produce a one-page cover letter (250–350 words) with:
 - A crisp closing with a call to talk. 
 
 Inputs: 
-Role: Software Development Engineer 
+Role: Remote Entry Level AWS Developer  
 
-Company: Magna 
+Company: Jobgether  
 
 Job priorities (7–10 bullets): 
 - Lead the architecture, design, and implementation of scalable, robust, and secure software solutions 
@@ -21,7 +21,7 @@ Job priorities (7–10 bullets):
 - Conduct code and architecture reviews to maintain quality and engineering standards 
 - Evaluate and recommend new technologies, tools, and processes to improve software development efficiency 
 - Acting as the bridge between the development team and other stakeholders, such as project managers, product managers, and clients 
-Resume highlights (4–7 bullets with impact): <RESUME_HIGHLIGHTS>
+Resume highlights (4–7 bullets with impact): <RESUME_HIGHLIGHTS> 
 Company positives (3–6 bullets): <COMPANY_POSITIVES> 
 Gap info (optional Reason + Length + Skills): <GAP_INFO or N/A> 
 Tone preference (Warm / Mission-Driven / Visionary): <TONE> 
