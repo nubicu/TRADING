@@ -9,12 +9,23 @@ Tom Nash : TSLA, PLTR, NVDA, VRT
 Chipottle, Sprouts, Target
 WMT, TSLA, DHI (Dr Horton)
 
+Celsius ($CELH), ZScaler ($ZS), Nu Holdings ($NU), Unity ($U),
+Broadcom ($AVGO), Applied Materials ($AMAT), ASML ($ASML)
+
 Dividend Stockpile:
 Automatic Data Processing Inc (ADP) - 2.56% Dividend
  American States Water Company (AWR) - 2.77% Dividend - utilities - regulated water
 American Tower Corporation (AMT) - 3.99% Dividend - REIT
 OKE, ACN, MKTX, RMD, TROW
+Target (TGT)
 
+Stocks related to NVIDIA, a must for NVDA chips
+FLEX - power systems
+Coherent (COHR) - fiber cables (photonics)
+Amkor Technology (AMKR) - similar TSMC (package chips)
+Navitas Semi (NVTS) - gallium nithride chips
+Synposys (SNPS)
+Cadence Design Systems (CDNS)
 
 BEST ETFs:
 Goldman Sachs S&P 500 Premium Income ETF (GPIX) - 8.04% yield monthly
