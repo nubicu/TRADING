@@ -27,6 +27,9 @@ Navitas Semi (NVTS) - gallium nithride chips
 Synposys (SNPS)
 Cadence Design Systems (CDNS)
 
+Arista, Applied Digital, Aero- vironment, ionq, Nvidia, Lam Research, Amazon, AMD.
+
+
 BEST ETFs:
 Goldman Sachs S&P 500 Premium Income ETF (GPIX) - 8.04% yield monthly
 NEOS S&P 500 High Income ETF (SPYI) - 11.61% yield monthly
