@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World News Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #0f0f0f;
+      color: #e8e8e8;
+      padding: 2rem;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+      color: #FFD700;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      letter-spacing: 1px;
+    }
+
+    .refresh-btn {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: transparent;
+      border: 1px solid #FFD700;
+      color: #FFD700;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .refresh-btn:hover {
+      background: #FFD700;
+      color: #0f0f0f;
+    }
+
+    /* LOADING OVERLAY */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 15, 15, 0.85);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #2a2a2a;
+      border-top-color: #FFD700;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: #FFD700;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* TIMESTAMP */
+    .timestamp {
+      text-align: center;
+      color: #444;
+      font-size: 0.75rem;
+      margin-bottom: 2rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section {
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      border-top: 3px solid #FFD700;
+    }
+
+    .section h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #FFD700;
+      margin-bottom: 1.25rem;
+    }
+
+    .article {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .article:last-child { border-bottom: none; }
+
+    .article a {
+      color: #e8e8e8;
+      text-decoration: none;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      transition: color 0.2s;
+    }
+
+    .article a:hover { color: #FFD700; }
+
+    .article .source {
+      font-size: 0.72rem;
+      color: #555;
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .no-articles {
+      color: #444;
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    @media (max-width: 700px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Fetching latest news...</div>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>⚡ World News Dashboard</h1>
+    <p class="subtitle">Business · Technology · Trading · Romania</p>
+    <a href="/refresh" class="refresh-btn" id="refreshBtn">↻ Refresh</a>
+  </div>
+
+  <!-- Timestamp -->
+  <p class="timestamp" id="timestamp"></p>
+
+  <!-- News grid -->
+  <div class="grid">
+    {% for category, articles in news.items() %}
+    <div class="section">
+      <h2>{{ category }}</h2>
+
+      {% if articles %}
+        {% for article in articles %}
+        <div class="article">
+          <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+          <div class="source">
+            {{ article.source.name }}
+            {% if article.publishedAt %}
+              · {{ article.publishedAt[:10] }}
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-articles">No articles available right now.</p>
+      {% endif %}
+
+    </div>
+    {% endfor %}
+  </div>
+
+<script>
+  // Show timestamp of last fetch
+  const ts = document.getElementById('timestamp');
+  const now = new Date();
+  ts.textContent = `Last updated: ${now.toLocaleDateString()} at ${now.toLocaleTimeString()}`;
+
+  // Show loading overlay when refresh is clicked
+  document.getElementById('refreshBtn').addEventListener('click', function(e) {
+    document.getElementById('loadingOverlay').classList.add('active');
+    // let the navigation happen naturally
+  });
+</script>
+
+</body>
+</html>

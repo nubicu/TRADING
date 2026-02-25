@@ -47,9 +47,11 @@ else:
 try:
     from bs4 import BeautifulSoup
     is_bs4 = True
+    BeautifulSoup_ = None
 except ImportError:
-    from BeautifulSoup import BeautifulSoup
+    import BeautifulSoup as BeautifulSoup_
     is_bs4 = False
+    BeautifulSoup = None
 
 __all__ = [
 
@@ -283,7 +285,7 @@ def search(query, tld='com', lang='en', tbs='0', safe='off', num=10, start=0,
         if is_bs4:
             soup = BeautifulSoup(html, 'html.parser')
         else:
-            soup = BeautifulSoup(html)
+            soup = BeautifulSoup_(html)
         anchors = soup.find(id='search').findAll('a')
         for a in anchors:
 
@@ -704,7 +706,7 @@ def hits(query, tld='com', lang='en', tbs='0', safe='off',
     if is_bs4:
         soup = BeautifulSoup(html, 'html.parser')
     else:
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup_(html)
 
     # Get the number of hits.
     tag = soup.find_all(attrs={"class": "sd", "id": "resultStats"})[0]

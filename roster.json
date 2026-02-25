@@ -1,0 +1,8 @@
+[
+  {
+    "type": "Hero",
+    "name": "Superman",
+    "city": "Metropolis",
+    "health": 100
+  }
+]
