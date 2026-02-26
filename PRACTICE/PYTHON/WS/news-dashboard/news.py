@@ -1,5 +1,6 @@
 import requests
 import os
+import time
 import importlib
 
 try:
@@ -11,6 +12,13 @@ except Exception:
 API_KEY = os.getenv("NEWS_API_KEY")         # pulls the key from it
 BASE_URL = "https://newsapi.org/v2/top-headlines"
 EVERYTHING_URL = "https://newsapi.org/v2/everything"
+
+CACHE_DURATION = 15 * 60        # 15 minutes in seconds
+
+_cache = {
+    "data": None,
+    "last_fetched": 0
+}
 
 def fetch_headlines(category, page_size=6):
     """Fetch headlines in Romanian, fall back to English if too few results."""
@@ -51,11 +59,23 @@ def fetch_romania(page_size=6):
         print(f"Error fetching Romania news: {e}")
         return []
 
-def get_all_news():
-    """Fetch all four categories at once."""
-    return {
-        "business": fetch_headlines("business"),
-        "technology": fetch_headlines("technology"),
-        "trading": fetch_headlines("general", page_size=6),  # NewsAPI has no trading category — general is closest
-        "romania": fetch_romania()
-    }
+def get_all_news(force=False):
+    """Return cached news unless it's stale or force=True."""
+    now = time.time()
+    age = now - _cache["last_fetched"]
+    cache_is_stale = age > CACHE_DURATION
+
+    if force or cache_is_stale or _cache["data"] is None:
+        print("Fetching fresh news from API...")
+        _cache["data"] = {
+            "business": fetch_headlines("business"),
+            "technology": fetch_headlines("technology"),
+            "trading": fetch_headlines("general"),
+            "romania": fetch_romania()
+        }
+        _cache["last_fetched"] = now
+    else:
+        minutes_left = round((CACHE_DURATION - age) / 60, 1)
+        print(f"Serving cached news — refreshes in {minutes_left} min")
+
+    return _cache["data"]

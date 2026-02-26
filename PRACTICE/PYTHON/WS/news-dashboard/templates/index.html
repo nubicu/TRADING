@@ -172,7 +172,14 @@
   <!-- Header -->
   <div class="header">
     <h1>⚡ World News Dashboard</h1>
-    <p class="subtitle">Business · Technology · Trading · Romania</p>
+    <p class="subtitle">
+  Business · Technology · Trading · Romania
+  {% if minutes_left > 0 %}
+    &nbsp;·&nbsp; next update in {{ minutes_left }} min
+  {% else %}
+    &nbsp;·&nbsp; <span style="color:#4caf50;">fresh data available — click refresh</span>
+  {% endif %}
+</p>
     <a href="/refresh" class="refresh-btn" id="refreshBtn">↻ Refresh</a>
   </div>
 
