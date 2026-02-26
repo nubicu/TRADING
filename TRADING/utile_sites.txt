@@ -28,3 +28,6 @@ Amkor Technology (AMKR) - similar TSMC (package chips)
 Navitas Semi (NVTS) - gallium nithride chips
 Synposys (SNPS)
 Cadence Design Systems (CDNS)
+
+
+Business with Brian: Arista(ANET), Applied Digital(APLD), Aero-vironment(AVAV), IONQ, Lam Research(LRCX), AMD.
