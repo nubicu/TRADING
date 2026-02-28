@@ -1,0 +1,21 @@
+Business & Trading
+python"r/investing":          fetch_reddit_tech("investing"),
+"r/wallstreetbets":     fetch_reddit_tech("wallstreetbets"),
+"r/stocks":             fetch_reddit_tech("stocks"),
+"r/economics":          fetch_reddit_tech("economics"),
+"r/finance":            fetch_reddit_tech("finance"),
+"r/cryptocurrency":     fetch_reddit_tech("CryptoCurrency"),
+"r/forex":              fetch_reddit_tech("Forex"),
+"r/algotrading":        fetch_reddit_tech("algotrading"),
+Tech specific
+python"r/machinelearning":    fetch_reddit_tech("MachineLearning"),
+"r/datascience":        fetch_reddit_tech("datascience"),
+"r/python":             fetch_reddit_tech("Python"),
+"r/cybersecurity":      fetch_reddit_tech("cybersecurity"),
+"r/startups":           fetch_reddit_tech("startups"),
+"r/futurology":         fetch_reddit_tech("Futurology"),
+World & Europe news
+python"r/worldnews":          fetch_reddit_tech("worldnews"),
+"r/europe":             fetch_reddit_tech("europe"),
+"r/geopolitics":        fetch_reddit_tech("geopolitics"),
+"r/romania":            fetch_reddit_tech("Romania"),
