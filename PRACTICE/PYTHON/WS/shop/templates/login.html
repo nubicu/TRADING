@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Autentificare - ShopAll{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="auth-card">
+        <div class="text-center mb-4">
+            <i class="fas fa-shopping-bag fa-3x text-primary mb-3"></i>
+            <h3 class="fw-bold">Bun venit înapoi!</h3>
+            <p class="text-muted">Autentifică-te pentru a continua</p>
+        </div>
+        <div id="errorAlert" class="alert alert-danger d-none"></div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="email@exemplu.ro">
+        </div>
+        <div class="mb-4">
+            <label class="form-label fw-semibold">Parolă</label>
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" placeholder="Parola ta">
+                <button class="btn btn-outline-secondary" type="button" onclick="togglePass('password')">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+        </div>
+        <button class="btn-auth mb-3" onclick="doLogin()">
+            <i class="fas fa-sign-in-alt me-2"></i>Autentifică-te
+        </button>
+        <p class="text-center text-muted">Nu ai cont? <a href="/register" class="text-primary fw-semibold">Înregistrează-te</a></p>
+    </div>
+</div>
+<script>
+function togglePass(id) { const el = document.getElementById(id); el.type = el.type === 'password' ? 'text' : 'password'; }
+
+async function doLogin() {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    if (!email || !password) { showError('Completează toate câmpurile'); return; }
+    
+    const res = await apiRequest('/api/auth/login', 'POST', { email, password });
+    if (res && res.ok) {
+        const data = await res.json();
+        // Get user info
+        const userRes = await fetch('/api/profile/me', { headers: { 'Authorization': `Bearer ${data.access_token}` }});
+        const user = await userRes.json();
+        setAuth(data.access_token, user);
+        window.location.href = '/';
+    } else {
+        const err = await res.json();
+        showError(err.detail || 'Email sau parolă incorectă');
+    }
+}
+
+function showError(msg) {
+    const el = document.getElementById('errorAlert');
+    el.textContent = msg;
+    el.classList.remove('d-none');
+}
+
+document.getElementById('password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+</script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}ShopAll - Magazin Online{% endblock %}
+{% block content %}
+<div class="container-fluid p-0">
+    <!-- HERO -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="display-4 fw-bold mb-3">
+                        Totul ce îți dorești,<br>
+                        <span style="color: var(--accent)">într-un singur loc</span>
+                    </h1>
+                    <p class="lead text-light mb-4">Mii de produse din toate categoriile. Livrare rapidă, prețuri competitive și garanție de satisfacție.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#products" class="btn btn-warning btn-lg fw-bold px-4">
+                            <i class="fas fa-shopping-bag me-2"></i>Cumpără Acum
+                        </a>
+                        <a href="#products" class="btn btn-outline-light btn-lg px-4">Explorează</a>
+                    </div>
+                    <div class="d-flex gap-4 mt-4">
+                        <div><strong class="fs-5">5000+</strong><p class="text-muted small mb-0">Produse</p></div>
+                        <div><strong class="fs-5">100K+</strong><p class="text-muted small mb-0">Clienți</p></div>
+                        <div><strong class="fs-5">4.9★</strong><p class="text-muted small mb-0">Rating</p></div>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-flex justify-content-end">
+                    <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500" 
+                         alt="Shopping" class="img-fluid rounded-3" style="max-height:380px; object-fit:cover">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="container mt-5" id="products">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title" id="sectionTitle">Toate Produsele</h2>
+            <span class="text-muted small" id="productCount"></span>
+        </div>
+        <div class="row g-3" id="productsContainer">
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary"></div>
+                <p class="mt-2 text-muted">Se încarcă produsele...</p>
+            </div>
+        </div>
+        <div class="text-center mt-5 d-none" id="loadMoreContainer">
+            <button class="btn btn-outline-primary px-5" onclick="loadMore()">
+                Încarcă mai multe <i class="fas fa-chevron-down ms-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="bg-white mt-5 py-5">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-md-3">
+                    <div class="p-3">
+                        <i class="fas fa-truck fa-2x text-primary mb-3"></i>
+                        <h6 class="fw-bold">Livrare Gratuită</h6>
+                        <p class="text-muted small">La comenzi peste 199 Lei</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3">
+                        <i class="fas fa-undo fa-2x text-primary mb-3"></i>
+                        <h6 class="fw-bold">Retur 30 Zile</h6>
+                        <p class="text-muted small">Garantat fără întrebări</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3">
+                        <i class="fas fa-lock fa-2x text-primary mb-3"></i>
+                        <h6 class="fw-bold">Plată Securizată</h6>
+                        <p class="text-muted small">SSL 256-bit encriptat</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3">
+                        <i class="fas fa-headset fa-2x text-primary mb-3"></i>
+                        <h6 class="fw-bold">Suport 24/7</h6>
+                        <p class="text-muted small">Suntem mereu disponibili</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+// Override loadProducts to also update count
+const _origLoad = loadProducts;
+</script>
+{% endblock %}

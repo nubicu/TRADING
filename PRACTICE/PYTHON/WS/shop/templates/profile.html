@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Profilul Meu - ShopAll{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row g-4">
+        <div class="col-lg-3">
+            <div class="profile-sidebar">
+                <div class="text-center mb-4">
+                    <div class="profile-avatar mx-auto mb-3" id="profileAvatar">U</div>
+                    <h6 class="fw-bold" id="sidebarName">Utilizator</h6>
+                    <p class="text-muted small" id="sidebarEmail"></p>
+                </div>
+                <nav class="profile-nav">
+                    <a href="/profil" class="nav-link active"><i class="fas fa-user me-2"></i>Profilul Meu</a>
+                    <a href="/comenzi" class="nav-link"><i class="fas fa-box me-2"></i>Comenzile Mele</a>
+                    <a href="/cos" class="nav-link"><i class="fas fa-shopping-cart me-2"></i>Coșul Meu</a>
+                    <hr>
+                    <a href="#" class="nav-link text-danger" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Deconectare</a>
+                </nav>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="bg-white rounded-3 p-4 shadow-sm">
+                <h5 class="fw-bold mb-4">Informații Personale</h5>
+                <div id="successAlert" class="alert alert-success d-none">Profil actualizat cu succes!</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Nume Complet</label>
+                        <input type="text" class="form-control" id="fullName">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Email</label>
+                        <input type="email" class="form-control" id="email" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Telefon</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="07XX XXX XXX">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Membru din</label>
+                        <input type="text" class="form-control" id="memberSince" disabled>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Adresă de Livrare</label>
+                        <textarea class="form-control" id="address" rows="3" placeholder="Strada, nr, bloc, ap, oraș, județ, cod poștal"></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary px-4 mt-3" onclick="saveProfile()">
+                    <i class="fas fa-save me-2"></i>Salvează Modificările
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+async function loadProfile() {
+    const token = getToken();
+    if (!token) { window.location.href = '/login'; return; }
+    const res = await apiRequest('/api/profile/me', 'GET', null, true);
+    if (!res || !res.ok) return;
+    const user = await res.json();
+    document.getElementById('fullName').value = user.full_name || '';
+    document.getElementById('email').value = user.email || '';
+    document.getElementById('phone').value = user.phone || '';
+    document.getElementById('address').value = user.address || '';
+    document.getElementById('memberSince').value = new Date(user.created_at).toLocaleDateString('ro-RO');
+    document.getElementById('sidebarName').textContent = user.full_name;
+    document.getElementById('sidebarEmail').textContent = user.email;
+    document.getElementById('profileAvatar').textContent = user.full_name?.charAt(0)?.toUpperCase() || 'U';
+}
+
+async function saveProfile() {
+    const res = await apiRequest('/api/profile/me', 'PUT', {
+        full_name: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+    }, true);
+    if (res && res.ok) {
+        const user = await res.json();
+        localStorage.setItem('user', JSON.stringify(user));
+        document.getElementById('successAlert').classList.remove('d-none');
+        setTimeout(() => document.getElementById('successAlert').classList.add('d-none'), 3000);
+    }
+}
+document.addEventListener('DOMContentLoaded', loadProfile);
+</script>
+{% endblock %}

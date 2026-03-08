@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block title %}Finalizare Comandă - ShopAll{% endblock %}
+{% block extra_css %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AXRdhTteO1-2pspFN9BLCLy9wfIVrapXjD0cgVFAI7u0Ud7_OxKpAae1aP1QMW_uVH200v5lo-C9rQa6&currency=RON"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="section-title mb-4"><i class="fas fa-lock me-2"></i>Finalizare Comandă</h2>
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <!-- SHIPPING -->
+            <div class="bg-white rounded-3 p-4 shadow-sm mb-4">
+                <h5 class="fw-bold mb-3"><i class="fas fa-map-marker-alt me-2 text-primary"></i>Adresă de Livrare</h5>
+                <textarea class="form-control" id="shippingAddress" rows="3" placeholder="Strada, număr, bloc, apartament, oraș, județ, cod poștal"></textarea>
+            </div>
+            <!-- PAYMENT METHOD -->
+            <div class="bg-white rounded-3 p-4 shadow-sm mb-4">
+                <h5 class="fw-bold mb-3"><i class="fas fa-credit-card me-2 text-primary"></i>Metodă de Plată</h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-6">
+                        <div class="payment-method-card selected" id="stripeCard" onclick="selectPayment('stripe')">
+                            <input type="radio" name="payment" value="stripe" checked>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fas fa-credit-card fa-2x text-primary"></i>
+                                <div>
+                                    <strong>Card Bancar</strong>
+                                    <p class="text-muted small mb-0">Visa, Mastercard</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="payment-method-card" id="paypalCard" onclick="selectPayment('paypal')">
+                            <input type="radio" name="payment" value="paypal">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fab fa-paypal fa-2x text-primary"></i>
+                                <div>
+                                    <strong>PayPal</strong>
+                                    <p class="text-muted small mb-0">Rapid și sigur</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- STRIPE FORM -->
+                <div id="stripeForm">
+                    <div id="card-element" class="form-control p-3 mb-3"></div>
+                    <div id="card-errors" class="text-danger small mb-3"></div>
+                    <button class="btn-buy-now" id="payBtn" onclick="payWithStripe()">
+                        <i class="fas fa-lock me-2"></i>Plătește Acum
+                    </button>
+                </div>
+                <!-- PAYPAL FORM -->
+                <div id="paypalForm" class="d-none">
+                    <div id="paypal-button-container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="order-summary">
+                <h5 class="fw-bold mb-3">Sumar Comandă</h5>
+                <div id="orderItems"></div>
+                <hr>
+                <div class="d-flex justify-content-between mb-1"><span>Subtotal</span><strong id="subtotal">-</strong></div>
+                <div class="d-flex justify-content-between mb-3"><span>Transport</span><strong class="text-success">GRATUIT</strong></div>
+                <div class="d-flex justify-content-between"><span class="fw-bold fs-5">Total</span><strong class="fs-5 text-primary" id="total">-</strong></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let selectedPayment = 'stripe';
+let stripe, cardElement;
+
+function selectPayment(method) {
+    selectedPayment = method;
+    document.getElementById('stripeCard').classList.toggle('selected', method === 'stripe');
+    document.getElementById('paypalCard').classList.toggle('selected', method === 'paypal');
+    document.getElementById('stripeForm').classList.toggle('d-none', method !== 'stripe');
+    document.getElementById('paypalForm').classList.toggle('d-none', method !== 'paypal');
+    if (method === 'paypal') initPayPal();
+}
+
+async function loadCheckout() {
+    const token = getToken();
+    if (!token) { window.location.href = '/login'; return; }
+    
+    const res = await apiRequest('/api/cart/', 'GET', null, true);
+    if (!res || !res.ok) return;
+    const items = await res.json();
+    if (items.length === 0) { window.location.href = '/cos'; return; }
+    
+    let total = 0;
+    const itemsHtml = items.map(item => {
+        const sub = item.product.price * item.quantity;
+        total += sub;
+        return `<div class="d-flex justify-content-between align-items-center mb-2 small">
+            <span>${item.product.name} × ${item.quantity}</span>
+            <strong>${sub.toFixed(2)} Lei</strong>
+        </div>`;
+    }).join('');
+    
+    document.getElementById('orderItems').innerHTML = itemsHtml;
+    document.getElementById('subtotal').textContent = total.toFixed(2) + ' Lei';
+    document.getElementById('total').textContent = total.toFixed(2) + ' Lei';
+    
+    // Init Stripe
+    const intentRes = await apiRequest('/api/payments/stripe/create-intent', 'POST', {payment_method: 'stripe', shipping_address: ''}, true);
+    if (intentRes && intentRes.ok) {
+        const { client_secret, publishable_key } = await intentRes.json();
+        stripe = Stripe(publishable_key);
+        const elements = stripe.elements({ clientSecret: client_secret });
+        cardElement = elements.create('card', { style: { base: { fontSize: '16px', color: '#334155' } } });
+        cardElement.mount('#card-element');
+        window._clientSecret = client_secret;
+    }
+}
+
+async function payWithStripe() {
+    const address = document.getElementById('shippingAddress').value.trim();
+    if (!address) { showToast('Te rugăm completează adresa de livrare', 'warning'); return; }
+    
+    const btn = document.getElementById('payBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner-border spinner-border-sm me-2"></div>Se procesează...';
+    
+    const { error, paymentIntent } = await stripe.confirmCardPayment(window._clientSecret, {
+        payment_method: { card: cardElement }
+    });
+    
+    if (error) {
+        document.getElementById('card-errors').textContent = error.message;
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-lock me-2"></i>Plătește Acum';
+        return;
+    }
+    
+    const res = await apiRequest('/api/payments/stripe/confirm', 'POST', {
+        payment_intent_id: paymentIntent.id,
+        shipping_address: address
+    }, true);
+    
+    if (res && res.ok) {
+        const data = await res.json();
+        window.location.href = `/succes-plata?order_id=${data.order_id}`;
+    }
+}
+
+async function initPayPal() {
+    const address = document.getElementById('shippingAddress').value.trim() || 'Adresă completată la livrare';
+    
+    if (window._paypalRendered) return;
+    window._paypalRendered = true;
+    
+    paypal.Buttons({
+        createOrder: async () => {
+            const res = await apiRequest('/api/payments/paypal/create-order', 'POST', {payment_method: 'paypal', shipping_address: address}, true);
+            const data = await res.json();
+            return data.paypal_order_id;
+        },
+        onApprove: async (data) => {
+            const addr = document.getElementById('shippingAddress').value.trim() || 'Adresă completată la livrare';
+            const res = await apiRequest('/api/payments/paypal/capture', 'POST', {paypal_order_id: data.orderID, shipping_address: addr}, true);
+            const result = await res.json();
+            window.location.href = `/succes-plata?order_id=${result.order_id}`;
+        },
+        onError: (err) => { showToast('Eroare PayPal', 'error'); console.error(err); }
+    }).render('#paypal-button-container');
+}
+
+document.addEventListener('DOMContentLoaded', loadCheckout);
+</script>
+{% endblock %}

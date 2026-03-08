@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}Produs - ShopAll{% endblock %}
+{% block content %}
+<div class="container" id="productContainer">
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary"></div>
+    </div>
+</div>
+
+<script>
+const productId = {{ product_id }};
+
+async function loadProduct() {
+    try {
+        const res = await fetch(`/api/products/${productId}`);
+        if (!res.ok) { document.getElementById('productContainer').innerHTML = '<div class="text-center py-5"><h4>Produs negăsit</h4><a href="/" class="btn btn-primary mt-3">Înapoi la magazin</a></div>'; return; }
+        const p = await res.json();
+        document.title = `${p.name} - ShopAll`;
+        renderProduct(p);
+    } catch(e) { console.error(e); }
+}
+
+function renderProduct(p) {
+    const discount = p.old_price ? Math.round((1 - p.price / p.old_price) * 100) : 0;
+    const images = p.images ? JSON.parse(p.images) : [p.image_url];
+    const mainImg = images[0] || 'https://via.placeholder.com/500';
+    
+    document.getElementById('productContainer').innerHTML = `
+    <!-- BREADCRUMB -->
+    <nav class="mb-4"><ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Acasă</a></li>
+        <li class="breadcrumb-item"><a href="/?category=${p.category?.slug}">${p.category?.name || 'Produse'}</a></li>
+        <li class="breadcrumb-item active">${p.name}</li>
+    </ol></nav>
+
+    <div class="row g-5">
+        <!-- IMAGES -->
+        <div class="col-lg-5">
+            <div class="position-relative">
+                <img src="${mainImg}" class="product-main-img" id="mainProductImg" alt="${p.name}">
+                ${discount > 0 ? `<span class="badge-discount fs-6">-${discount}%</span>` : ''}
+            </div>
+            ${images.length > 1 ? `<div class="d-flex gap-2 mt-3 flex-wrap">${images.map((img, i) => `<img src="${img}" class="product-thumb ${i===0?'active':''}" onclick="changeImg(this, '${img}')">`).join('')}</div>` : ''}
+        </div>
+
+        <!-- DETAILS -->
+        <div class="col-lg-7">
+            <p class="text-muted small text-uppercase fw-semibold mb-1">${p.category?.name || ''}</p>
+            <h1 class="fw-bold mb-3 fs-2">${p.name}</h1>
+            
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="stars d-flex gap-1">${generateStars(p.rating)}</div>
+                <span class="fw-semibold">${p.rating.toFixed(1)}</span>
+                <span class="text-muted">(${p.reviews_count} recenzii)</span>
+            </div>
+
+            <div class="d-flex align-items-baseline gap-3 mb-4">
+                <span class="fw-bold text-primary" style="font-size:2rem">${p.price.toFixed(2)} Lei</span>
+                ${p.old_price ? `<span class="price-old fs-5">${p.old_price.toFixed(2)} Lei</span>` : ''}
+                ${discount > 0 ? `<span class="badge bg-danger fs-6">Economisești ${(p.old_price - p.price).toFixed(2)} Lei</span>` : ''}
+            </div>
+
+            <div class="mb-4">
+                <span class="badge ${p.stock > 5 ? 'bg-success' : p.stock > 0 ? 'bg-warning text-dark' : 'bg-danger'} fs-6 px-3 py-2">
+                    <i class="fas fa-${p.stock > 0 ? 'check-circle' : 'times-circle'} me-1"></i>
+                    ${p.stock > 5 ? 'În stoc' : p.stock > 0 ? `Doar ${p.stock} disponibile` : 'Stoc epuizat'}
+                </span>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changeProductQty(-1)"><i class="fas fa-minus"></i></button>
+                    <span class="fw-bold px-3 fs-5" id="productQty">1</span>
+                    <button class="qty-btn" onclick="changeProductQty(1)"><i class="fas fa-plus"></i></button>
+                </div>
+                <span class="text-muted small">Stoc: ${p.stock} buc.</span>
+            </div>
+
+            <div class="d-flex gap-3 mb-4">
+                ${p.stock > 0 ? `
+                <button class="btn-buy-now flex-grow-1" onclick="addProductToCart(${p.id}, '${p.name.replace(/'/g,"\'")}')">
+                    <i class="fas fa-cart-plus me-2"></i>Adaugă în Coș
+                </button>
+                <button class="btn btn-outline-primary px-4" onclick="buyNow(${p.id})" title="Cumpără acum">
+                    <i class="fas fa-bolt"></i>
+                </button>` : '<button class="btn-buy-now flex-grow-1 opacity-50" disabled>Stoc Epuizat</button>'}
+            </div>
+
+            <!-- FEATURES -->
+            <div class="row g-2 mb-4">
+                <div class="col-6"><div class="bg-light rounded p-3 text-center small"><i class="fas fa-truck text-primary mb-1 d-block"></i>Livrare gratuită</div></div>
+                <div class="col-6"><div class="bg-light rounded p-3 text-center small"><i class="fas fa-undo text-primary mb-1 d-block"></i>Retur 30 zile</div></div>
+                <div class="col-6"><div class="bg-light rounded p-3 text-center small"><i class="fas fa-shield-alt text-primary mb-1 d-block"></i>Garanție 2 ani</div></div>
+                <div class="col-6"><div class="bg-light rounded p-3 text-center small"><i class="fas fa-lock text-primary mb-1 d-block"></i>Plată securizată</div></div>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="bg-light rounded p-4">
+                <h5 class="fw-bold mb-2">Descriere Produs</h5>
+                <p class="mb-0">${p.description}</p>
+            </div>
+        </div>
+    </div>`;
+}
+
+let productQty = 1;
+function changeProductQty(delta) {
+    productQty = Math.max(1, productQty + delta);
+    document.getElementById('productQty').textContent = productQty;
+}
+function changeImg(el, src) {
+    document.getElementById('mainProductImg').src = src;
+    document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+}
+async function addProductToCart(pid, name) {
+    const token = getToken();
+    if (!token) { showToast('Trebuie să fii autentificat', 'warning'); setTimeout(() => window.location.href='/login', 1500); return; }
+    const res = await apiRequest(`/api/cart/add?product_id=${pid}&quantity=${productQty}`, 'POST', null, true);
+    if (res && res.ok) { showToast(`"${name}" adăugat în coș!`); updateCartBadge(); }
+    else { const e = await res.json(); showToast(e.detail || 'Eroare', 'error'); }
+}
+async function buyNow(pid) {
+    await addProductToCart(pid, '');
+    window.location.href = '/cos';
+}
+document.addEventListener('DOMContentLoaded', loadProduct);
+</script>
+{% endblock %}

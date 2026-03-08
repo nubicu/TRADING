@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Coșul Meu - ShopAll{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="section-title mb-4"><i class="fas fa-shopping-cart me-2"></i>Coșul Meu</h2>
+    <div class="row g-4">
+        <div class="col-lg-8" id="cartContainer">
+            <div class="text-center py-5"><div class="spinner-border text-primary"></div></div>
+        </div>
+        <div class="col-lg-4" id="cartSummary"></div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="/static/js/cart.js"></script>
+<script>document.addEventListener('DOMContentLoaded', loadCart);</script>
+{% endblock %}

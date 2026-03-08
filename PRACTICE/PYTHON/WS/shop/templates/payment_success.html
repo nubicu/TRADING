@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Plată Reușită - ShopAll{% endblock %}
+{% block content %}
+<div class="container text-center py-5">
+    <div class="mx-auto" style="max-width:500px">
+        <div class="mb-4" style="font-size:6rem">🎉</div>
+        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width:100px;height:100px">
+            <i class="fas fa-check-circle text-success fa-4x"></i>
+        </div>
+        <h2 class="fw-bold mb-3">Plată Reușită!</h2>
+        <p class="text-muted mb-4">Comanda ta a fost plasată cu succes. Vei primi un email de confirmare în curând.</p>
+        <div class="bg-light rounded p-3 mb-4">
+            <p class="mb-1 text-muted small">Numărul comenzii</p>
+            <strong class="fs-4 text-primary" id="orderId">-</strong>
+        </div>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="/comenzi" class="btn btn-primary px-4">
+                <i class="fas fa-box me-2"></i>Comenzile Mele
+            </a>
+            <a href="/" class="btn btn-outline-primary px-4">
+                <i class="fas fa-shopping-bag me-2"></i>Continuă Cumpărăturile
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+const params = new URLSearchParams(window.location.search);
+const orderId = params.get('order_id');
+if (orderId) document.getElementById('orderId').textContent = '#' + orderId;
+updateCartBadge();
+</script>
+{% endblock %}

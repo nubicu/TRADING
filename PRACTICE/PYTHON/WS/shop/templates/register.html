@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}Înregistrare - ShopAll{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="auth-card">
+        <div class="text-center mb-4">
+            <i class="fas fa-user-plus fa-3x text-primary mb-3"></i>
+            <h3 class="fw-bold">Creează cont nou</h3>
+            <p class="text-muted">Alătură-te comunității ShopAll</p>
+        </div>
+        <div id="errorAlert" class="alert alert-danger d-none"></div>
+        <div id="successAlert" class="alert alert-success d-none"></div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Nume complet</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Ion Popescu">
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="email@exemplu.ro">
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Telefon (opțional)</label>
+            <input type="tel" class="form-control" id="phone" placeholder="07XX XXX XXX">
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Parolă</label>
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" placeholder="Minimum 6 caractere">
+                <button class="btn btn-outline-secondary" type="button" onclick="togglePass('password')">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label fw-semibold">Confirmă Parola</label>
+            <input type="password" class="form-control" id="password2" placeholder="Repetă parola">
+        </div>
+        <button class="btn-auth mb-3" id="registerBtn" onclick="doRegister()">
+            <i class="fas fa-user-plus me-2"></i>Creează Cont
+        </button>
+        <p class="text-center text-muted">Ai deja cont? 
+            <a href="/login" class="text-primary fw-semibold">Autentifică-te</a>
+        </p>
+    </div>
+</div>
+
+<script>
+function togglePass(id) {
+    const el = document.getElementById(id);
+    el.type = el.type === 'password' ? 'text' : 'password';
+}
+
+function showError(msg) {
+    const el = document.getElementById('errorAlert');
+    el.textContent = msg;
+    el.classList.remove('d-none');
+    document.getElementById('successAlert').classList.add('d-none');
+}
+
+function showSuccess(msg) {
+    const el = document.getElementById('successAlert');
+    el.textContent = msg;
+    el.classList.remove('d-none');
+    document.getElementById('errorAlert').classList.add('d-none');
+}
+
+async function doRegister() {
+    const btn = document.getElementById('registerBtn');
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value;
+    const password2 = document.getElementById('password2').value;
+
+    // Validari
+    if (!fullName) { showError('Completează numele complet'); return; }
+    if (!email) { showError('Completează emailul'); return; }
+    if (!password) { showError('Completează parola'); return; }
+    if (password !== password2) { showError('Parolele nu coincid'); return; }
+    if (password.length < 6) { showError('Parola trebuie să aibă minimum 6 caractere'); return; }
+
+    // Loading state
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner-border spinner-border-sm me-2"></div>Se procesează...';
+
+    try {
+        const response = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: email,
+                full_name: fullName,
+                password: password,
+                phone: phone || null
+            })
+        });
+
+        const data = await response.json();
+        console.log('Register response:', response.status, data);
+
+        if (response.ok) {
+            // Salveaza token
+            localStorage.setItem('token', data.access_token);
+
+            // Obtine datele utilizatorului
+            const userRes = await fetch('/api/profile/me', {
+                headers: { 'Authorization': `Bearer ${data.access_token}` }
+            });
+            const user = await userRes.json();
+            localStorage.setItem('user', JSON.stringify(user));
+
+            showSuccess('Cont creat cu succes! Te redirecționăm...');
+            setTimeout(() => window.location.href = '/', 1500);
+        } else {
+            showError(data.detail || 'Eroare la înregistrare');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-user-plus me-2"></i>Creează Cont';
+        }
+    } catch (err) {
+        console.error('Eroare:', err);
+        showError('Eroare de conexiune: ' + err.message);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-user-plus me-2"></i>Creează Cont';
+    }
+}
+</script>
+{% endblock %}
