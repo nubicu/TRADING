@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Code Academy — Python Learning Framework</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=DM+Mono:wght@400;500&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --flash-red: #CC0000;
+    --flash-yellow: #FFD700;
+    --flash-lightning: #FFF176;
+    --super-blue: #0D3B8E;
+    --super-red: #C62828;
+    --super-yellow: #FFC107;
+    --dark: #0a0a0f;
+    --card-bg: #13131f;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8e8f0;
+    --muted: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(204,0,0,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(13,59,142,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse at 60% 80%, rgba(255,215,0,0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    padding: 3rem 0 2.5rem;
+    position: relative;
+  }
+
+  .heroes-row {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-badge {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+    border: 3px solid;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+  }
+  .hero-badge.flash {
+    background: radial-gradient(circle, #CC0000, #800000);
+    border-color: var(--flash-yellow);
+    box-shadow: 0 0 24px rgba(204,0,0,0.5), 0 0 8px rgba(255,215,0,0.3);
+  }
+  .hero-badge.super {
+    background: radial-gradient(circle, #0D3B8E, #051d52);
+    border-color: var(--super-yellow);
+    box-shadow: 0 0 24px rgba(13,59,142,0.5), 0 0 8px rgba(255,193,7,0.3);
+    animation-delay: -1.5s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  h1 {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--flash-yellow) 0%, #fff 40%, var(--super-yellow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* HERO PRINCIPLES */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+
+  .principle-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .principle-card:hover { transform: translateY(-3px); }
+  .principle-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .principle-card.flash-card::before { background: linear-gradient(90deg, var(--flash-red), var(--flash-yellow)); }
+  .principle-card.super-card::before { background: linear-gradient(90deg, var(--super-blue), var(--super-yellow)); }
+  .principle-card.flash-card:hover { box-shadow: 0 8px 32px rgba(204,0,0,0.2); }
+  .principle-card.super-card:hover { box-shadow: 0 8px 32px rgba(13,59,142,0.2); }
+
+  .principle-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .principle-title {
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+  }
+  .flash-card .principle-title { color: var(--flash-yellow); }
+  .super-card .principle-title { color: var(--super-yellow); }
+  .principle-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 2.5rem 0 1.25rem;
+  }
+  .section-header h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 1.6rem;
+    letter-spacing: 1.5px;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PHASES / CHECKLIST */
+  .phase {
+    margin-bottom: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-bg);
+    transition: box-shadow 0.2s;
+  }
+  .phase:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+
+  .phase-header {
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .phase-header:hover { background: rgba(255,255,255,0.02); }
+
+  .phase-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+  .phase-meta { flex: 1; }
+  .phase-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
+  }
+  .phase-hero {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .phase-1 .phase-hero { color: var(--flash-yellow); }
+  .phase-2 .phase-hero { color: var(--super-yellow); }
+  .phase-3 .phase-hero { color: var(--flash-yellow); }
+  .phase-4 .phase-hero { color: var(--super-yellow); }
+  .phase-5 .phase-hero { color: #aaa; }
+
+  .phase-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .phase-pct { font-size: 0.8rem; color: var(--muted); min-width: 2.5rem; text-align: right; }
+  .phase-toggle {
+    font-size: 0.7rem;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .phase.open .phase-toggle { transform: rotate(90deg); }
+
+  .mini-bar {
+    width: 64px; height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .mini-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .phase-1 .mini-fill { background: linear-gradient(90deg, var(--flash-red), var(--flash-yellow)); }
+  .phase-2 .mini-fill { background: linear-gradient(90deg, var(--super-blue), var(--super-yellow)); }
+  .phase-3 .mini-fill { background: linear-gradient(90deg, var(--flash-red), var(--flash-yellow)); }
+  .phase-4 .mini-fill { background: linear-gradient(90deg, var(--super-blue), var(--super-yellow)); }
+  .phase-5 .mini-fill { background: linear-gradient(90deg, #555, #aaa); }
+
+  .phase-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .phase.open .phase-body { display: block; }
+
+  .task-list { list-style: none; margin-top: 0.75rem; }
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 4px;
+    padding-left: 0.25rem;
+  }
+  .task-item:last-child { border-bottom: none; }
+  .task-item:hover { background: rgba(255,255,255,0.03); }
+
+  .task-check {
+    width: 20px; height: 20px;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    transition: all 0.2s;
+    margin-top: 1px;
+  }
+  .task-item.done .task-check {
+    border-color: #4caf50;
+    background: #4caf50;
+    color: white;
+  }
+  .task-text {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+  .task-item.done .task-text {
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+  .task-tag {
+    margin-left: auto;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0.7;
+    font-family: 'DM Mono', monospace;
+  }
+  .tag-speed { background: rgba(204,0,0,0.2); color: #ff8a80; }
+  .tag-strength { background: rgba(13,59,142,0.3); color: #82b1ff; }
+
+  /* OVERALL PROGRESS */
+  .progress-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  .progress-label {
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    color: var(--muted);
+  }
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    height: 14px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--flash-red), var(--flash-yellow), var(--super-blue), var(--super-yellow));
+    border-radius: 8px;
+    transition: width 0.5s ease;
+  }
+  .progress-stats {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .progress-stats span {
+    color: var(--flash-yellow);
+    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* QUOTE */
+  .hero-quote {
+    background: var(--card-bg);
+    border-left: 3px solid;
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--muted);
+    display: none;
+  }
+  .hero-quote.visible { display: block; }
+  .hero-quote.flash-quote { border-color: var(--flash-yellow); }
+  .hero-quote.super-quote { border-color: var(--super-blue); }
+  .hero-quote cite {
+    display: block;
+    margin-top: 0.4rem;
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .flash-quote cite { color: var(--flash-yellow); }
+  .super-quote cite { color: var(--super-yellow); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin-top: 3rem;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 600px) {
+    .principles-grid { grid-template-columns: 1fr; }
+    .mini-bar { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="heroes-row">
+      <div class="hero-badge flash">⚡</div>
+      <div class="hero-badge super">🦸</div>
+    </div>
+    <h1>HERO CODE ACADEMY</h1>
+    <p class="subtitle">Your Python Learning Framework — Powered by Flash & Superman</p>
+  </header>
+
+  <!-- Principles -->
+  <div class="section-header">
+    <h2>Your Hero Principles</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="principles-grid">
+    <div class="principle-card flash-card">
+      <span class="principle-icon">⚡</span>
+      <div class="principle-title">Flash Speed</div>
+      <div class="principle-desc">Practice fast, break things, iterate quickly. Write code every day — even 15 minutes builds momentum. Speed comes from repetition, not waiting until you're "ready."</div>
+    </div>
+    <div class="principle-card super-card">
+      <span class="principle-icon">🦸</span>
+      <div class="principle-title">Superman Strength</div>
+      <div class="principle-desc">Build deep foundations. Don't just copy-paste — understand <em>why</em> the code works. Superman's power comes from the sun; yours comes from truly mastering the fundamentals.</div>
+    </div>
+    <div class="principle-card flash-card">
+      <span class="principle-icon">🔴</span>
+      <div class="principle-title">The Speed Force</div>
+      <div class="principle-desc">Use spaced repetition. Review what you learned yesterday before learning something new. Flash's speed is trained muscle memory — your code fluency is too.</div>
+    </div>
+    <div class="principle-card super-card">
+      <span class="principle-icon">🔵</span>
+      <div class="principle-title">Man of Steel Focus</div>
+      <div class="principle-desc">Build real projects that matter to you. Superman fights for something meaningful — your projects should too. A real goal beats endless tutorials every time.</div>
+    </div>
+  </div>
+
+  <!-- Overall Progress -->
+  <div class="progress-section">
+    <div class="progress-label">⚡ Overall Python Power Level 🦸</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-fill" id="overallBar" style="width:0%"></div>
+    </div>
+    <div class="progress-stats">
+      <span id="doneCount">0</span> of <span id="totalCount">0</span> missions complete &nbsp;·&nbsp; <span id="pctText">0%</span> to full power
+    </div>
+  </div>
+
+  <!-- Phase Checklist -->
+  <div class="section-header">
+    <h2>Your 5-Phase Mission Map</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="phase phase-1" id="phase-0">
+    <div class="phase-header" onclick="togglePhase(0)">
+      <div class="phase-icon">⚡</div>
+      <div class="phase-meta">
+        <div class="phase-name">Phase 1 — Flash Origin: The Basics</div>
+        <div class="phase-hero">Flash Power · Move Fast, Learn Fundamentals</div>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="mini-bar"><div class="mini-fill" id="bar-0" style="width:0%"></div></div>
+        <div class="phase-pct" id="pct-0">0%</div>
+        <div class="phase-toggle">▶</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <ul class="task-list" data-phase="0">
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Install Python & set up VS Code or a Jupyter notebook</div><span class="task-tag tag-speed">setup</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Understand variables, data types (int, str, float, bool)</div><span class="task-tag tag-speed">⚡ speed</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Learn print(), input(), and basic arithmetic operators</div><span class="task-tag tag-speed">⚡ speed</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Write your first program: a "Flash Speed Calculator" that takes two numbers and shows all operations</div><span class="task-tag tag-speed">project</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Understand if/elif/else conditionals</div><span class="task-tag tag-speed">⚡ speed</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase phase-2" id="phase-1">
+    <div class="phase-header" onclick="togglePhase(1)">
+      <div class="phase-icon">🦸</div>
+      <div class="phase-meta">
+        <div class="phase-name">Phase 2 — Superman Foundation: Control & Data</div>
+        <div class="phase-hero">Superman Power · Build Unbreakable Structure</div>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="mini-bar"><div class="mini-fill" id="bar-1" style="width:0%"></div></div>
+        <div class="phase-pct" id="pct-1">0%</div>
+        <div class="phase-toggle">▶</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <ul class="task-list" data-phase="1">
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Master for loops and while loops — understand when to use each</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Work with lists: indexing, slicing, append, remove</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Work with dictionaries: keys, values, iteration</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Understand tuples and sets and when they're useful</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Project: Build a "Hero Roster" — a dictionary-based superhero database you can query</div><span class="task-tag tag-strength">project</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase phase-3" id="phase-2">
+    <div class="phase-header" onclick="togglePhase(2)">
+      <div class="phase-icon">⚡</div>
+      <div class="phase-meta">
+        <div class="phase-name">Phase 3 — Flash Agility: Functions & Modules</div>
+        <div class="phase-hero">Flash Power · Speed Through Reusable Code</div>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="mini-bar"><div class="mini-fill" id="bar-2" style="width:0%"></div></div>
+        <div class="phase-pct" id="pct-2">0%</div>
+        <div class="phase-toggle">▶</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <ul class="task-list" data-phase="2">
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Write and call your own functions with parameters and return values</div><span class="task-tag tag-speed">⚡ speed</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Understand scope: local vs. global variables</div><span class="task-tag tag-speed">⚡ speed</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Learn lambda functions and list comprehensions</div><span class="task-tag tag-speed">⚡ speed</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Import and use built-in modules: random, math, datetime</div><span class="task-tag tag-speed">⚡ speed</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Install and use a third-party library with pip (e.g., requests or colorama)</div><span class="task-tag tag-speed">project</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase phase-4" id="phase-3">
+    <div class="phase-header" onclick="togglePhase(3)">
+      <div class="phase-icon">🦸</div>
+      <div class="phase-meta">
+        <div class="phase-name">Phase 4 — Man of Steel: OOP & Files</div>
+        <div class="phase-hero">Superman Power · Architect Robust Systems</div>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="mini-bar"><div class="mini-fill" id="bar-3" style="width:0%"></div></div>
+        <div class="phase-pct" id="pct-3">0%</div>
+        <div class="phase-toggle">▶</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <ul class="task-list" data-phase="3">
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Understand classes, objects, __init__, and methods</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Learn inheritance and when to use it</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Read and write files: open(), read(), write(), with statement</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Handle exceptions with try/except/finally</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Project: Create a "Hero Class" in Python with subclasses for Flash and Superman, saved to a file</div><span class="task-tag tag-strength">project</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 5 -->
+  <div class="phase phase-5" id="phase-4">
+    <div class="phase-header" onclick="togglePhase(4)">
+      <div class="phase-icon">🌟</div>
+      <div class="phase-meta">
+        <div class="phase-name">Phase 5 — Justice League Level: Real Projects</div>
+        <div class="phase-hero">Full Power · Ship Something Real</div>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="mini-bar"><div class="mini-fill" id="bar-4" style="width:0%"></div></div>
+        <div class="phase-pct" id="pct-4">0%</div>
+        <div class="phase-toggle">▶</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <ul class="task-list" data-phase="4">
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Pick a real project: web scraper, CLI tool, data analyzer, or simple game</div><span class="task-tag tag-speed">⚡🦸</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Learn to use GitHub: commit and push your project</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Write a README explaining what your project does</div><span class="task-tag tag-speed">⚡ speed</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Explore one specialization: data science (pandas), web (Flask), or automation (selenium)</div><span class="task-tag tag-strength">🦸 strength</span></li>
+        <li class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Share your project with someone or post it online — heroes don't hide their work!</div><span class="task-tag tag-speed">⚡🦸</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Quotes -->
+  <div class="hero-quote flash-quote visible">
+    "The only way to gain speed is to keep moving." — Flash Principle<br>
+    <cite>⚡ Applied to Python: Code something today, even if it's small.</cite>
+  </div>
+  <div class="hero-quote super-quote visible">
+    "You will give the people of Earth an ideal to strive towards." — Superman<br>
+    <cite>🦸 Applied to Python: Your finished project can inspire others to start coding too.</cite>
+  </div>
+
+  <footer>
+    Hero Code Academy · Built for a Python learner with heroic taste &nbsp;⚡🦸
+  </footer>
+</div>
+
+<script>
+  const taskStates = {};
+  const phaseCounts = [5, 5, 5, 5, 5];
+
+  function togglePhase(idx) {
+    const el = document.getElementById('phase-' + idx);
+    el.classList.toggle('open');
+  }
+
+  function toggleTask(item) {
+    item.classList.toggle('done');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    let totalDone = 0, totalAll = 0;
+
+    for (let i = 0; i < 5; i++) {
+      const phase = document.getElementById('phase-' + i);
+      const tasks = phase.querySelectorAll('.task-item');
+      const done = phase.querySelectorAll('.task-item.done').length;
+      const total = tasks.length;
+      totalDone += done;
+      totalAll += total;
+
+      const pct = total ? Math.round(done / total * 100) : 0;
+      document.getElementById('pct-' + i).textContent = pct + '%';
+      document.getElementById('bar-' + i).style.width = pct + '%';
+    }
+
+    const overall = totalAll ? Math.round(totalDone / totalAll * 100) : 0;
+    document.getElementById('overallBar').style.width = overall + '%';
+    document.getElementById('doneCount').textContent = totalDone;
+    document.getElementById('totalCount').textContent = totalAll;
+    document.getElementById('pctText').textContent = overall + '%';
+  }
+
+  // Init
+  document.getElementById('totalCount').textContent = 25;
+  // Open first phase by default
+  togglePhase(0);
+</script>
+</body>
+</html>
