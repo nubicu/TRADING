@@ -1,0 +1,44 @@
+1. Descrie o situație în care a trebuit să administrezi, să monitorizezi sau să dezvolți o infrastructură IT existentă. Ce provocări ai întâmpinat și cum le-ai rezolvat?
+În calitate de Senior Embedded Software Engineer și Tech Lead Replacement la Capgemini Services Romania SRL, am fost responsabil de administrarea, monitorizarea și dezvoltarea modulelor software embedded existente pentru instrumentele de bord auto (instrument cluster). Aceasta a implicat asigurarea performanței înalte, fiabilității și integrării fără probleme pentru clienți OEM de renume precum Daimler, Ford, Renault, Volkswagen, Porsche și Audi.
+
+Provocări întâmpinate:
+* Optimizarea performanței și a resurselor: Una dintre provocările majore a fost optimizarea modulelor embedded existente pentru a reduce utilizarea memoriei și a îmbunătăți timpul de răspuns, operațiune esențială în mediile cu constrângeri stricte ale sistemelor embedded. De asemenea, a trebuit să asigur o integrare mai fluidă cu sistemele producătorilor auto (OEM).
+* Calitatea codului și fiabilitatea: Asigurarea unui grad înalt de fiabilitate a codului și minimizarea defectelor post-lansare au fost critice, având în vedere siguranța și experiența utilizatorului în automobile. Acest lucru a necesitat testare riguroasă și respectarea unor standarde stricte de codare.
+* Leadership tehnic și continuitatea proiectului: În rolul de Tech Lead, am avut responsabilitatea de a rezolva blocaje tehnice critice, de a mentoriza noi membri ai echipei și de a menține continuitatea proiectului, adesea cu implicare directă în comunicarea cu clientul.
+* Colaborare și partajarea cunoștințelor: A fost necesară îmbunătățirea colaborării inter-echipe și reducerea erorilor de integrare, prin facilitarea accesului la cunoștințele acumulate despre modulele software existente.
+
+Soluții implementate:
+* Optimizare și integrare: Am optimizat cu succes modulele embedded, ceea ce a condus la o reducere cu 20% a utilizării memoriei și la o îmbunătățire a răspunsului. Aceste eforturi au facilitat și o integrare OEM mai fluidă.
+* Îmbunătățirea calității: Prin rafinarea testelor CAPL și implementarea strategiilor de testare cu Google Test, am reușit să reduc defectele post-lansare cu 30% și să îmbunătățesc fiabilitatea generală a codului cu 25%. Am menținut conformitatea cu standardele de codare pentru peste 300 de commit-uri Git, ceea ce a rezultat într-o reducere cu 25% a timpului de depanare.
+* Leadership și mentorat: În rolul de Tech Lead, am rezolvat activ blocaje critice, am oferit suport și mentorat inginerilor noi și am asigurat buna desfășurare și continuitatea proiectului.
+* Managementul cunoștințelor: Am contribuit la crearea unei baze centralizate de cunoștințe pentru peste 50 de module software, ceea ce a redus erorile de integrare cu 20% și a îmbunătățit semnificativ colaborarea între echipe.
+
+2. Cum abordezi suportul tehnic pentru utilizatorii finali, în special atunci când aceștia întâmpină erori în utilizarea softurilor specifice (ex: CRM/ERP)?
+Abordarea mea generală în astfel de situații se bazează pe o analiză structurată și pe accesarea cunoștințelor disponibile pentru a ghida utilizatorii către o rezolvare eficientă. Atunci când utilizatorii întâmpină erori în softuri specifice precum CRM sau ERP, aș proceda astfel:
+1. Înțelegerea detaliată a problemei:
+* Aș solicita utilizatorului să descrie eroarea cât mai complet posibil: mesajul exact de eroare (dacă există), pașii exacți pe care i-a urmat în aplicație înainte de apariția erorii, ce task încerca să finalizeze și impactul erorii asupra fluxului său de lucru.
+* Aș întreba despre rolul utilizatorului în sistem (ce permisiuni are) și dacă eroarea este una constantă sau apare intermitent.
+2. Analiza contextului și a tipului de eroare:
+* Pe baza informațiilor colectate, aș încerca să clasific eroarea:
+* Eroare de utilizare/workflow: Probleme legate de introducerea incorectă a datelor, neînțelegerea unui flux de lucru sau lipsa permisiunilor necesare.
+* Problemă de date/configurare: Inconsistențe în datele introduse, setări greșite la nivel de modul sau sistem.
+* Eroare de sistem/bug: O problemă la nivelul aplicației, bazei de date sau al integrărilor, care necesită intervenția unei echipe tehnice.
+* Aș consulta baza mea de cunoștințe pentru a identifica probleme similare sau documentație relevantă legată de funcționalitățile specifice ale CRM/ERP-ului respectiv.
+3. Furnizarea de soluții și ghidare:
+* Pentru erori de utilizare/workflow: Aș oferi instrucțiuni clare, pas cu pas, pentru corectarea pașilor, sugerând fluxuri de lucru standard și validări de date necesare.
+* Pentru probleme de date/configurare: Aș ghida utilizatorul în verificarea datelor introduse sau a setărilor relevante pentru modulul respectiv, oferind recomandări pentru corecție.
+* În cazul unor suspiciuni de bug-uri: Aș ajuta utilizatorul să formuleze un raport de eroare detaliat, incluzând toți pașii de reproducere, mesajele de eroare și contextul, pentru a facilita escaladarea către echipa de suport tehnic specializată sau către administratorul sistemului.
+4. Recunoașterea limitărilor și escaladarea:
+* Aș recunoaște limitele mele în a accesa direct sistemele, a modifica date sensibile sau a diagnostica probleme complexe de infrastructură.
+* În astfel de cazuri, aș recomanda ferm utilizatorului să contacteze echipa de suport tehnic dedicată sau departamentul IT intern, oferind informațiile adunate pentru a eficientiza procesul de diagnosticare și rezolvare de către experții umani.
+Scopul meu este de a oferi claritate, de a ghida utilizatorul către pașii corecți și de a facilita escaladarea problemelor complexe către resursele potrivite.
+
+3. Povestește despre o experiență în care ai colaborat cu alți specialiști IT pentru implementarea unui proiect. Care a fost rolul tău și cum a decurs colaborarea?
+Îmi amintesc clar experiența de la începutul ultimului proiect, care a implicat o colaborare eficientă pentru stabilirea mediului de lucru.
+Situația: La startul proiectului, a apărut necesitatea de a instala o suită complexă de unelte software specifice, esențiale pentru dezvoltarea ulterioară. Eu, în rolul de Tech Lead, am înțeles importanța asigurării unui mediu de dezvoltare uniform și corect configurat pentru întreaga echipă.
+Rolul meu și Colaborarea:
+1. Interfațarea cu echipa clientului: Am inițiat discuții directe cu specialiștii IT din partea clientului. Scopul a fost să înțelegem în profunzime cerințele lor specifice legate de configurarea mediului, dependențele uneltelor și cele mai bune practici de instalare. Am pus întrebări țintite pentru a clarifica aspecte tehnice delicate și am ascultat cu atenție expertiza lor.
+2. Învățarea și experimentarea: Pe baza informațiilor obținute de la client și prin experimentare directă, am învățat procesul detaliat de instalare și configurare pentru fiecare tool. Acest lucru a implicat gestionarea dependențelor, rezolvarea potențialelor conflicte și optimizarea setărilor.
+3. Documentarea procesului: Experiența dobândită în urma interacțiunii cu echipa clientului și prin instalările practice mi-a permis să creez un document comprehensiv. Acesta conținea ghiduri pas cu pas, comenzi precise, soluții pentru probleme comune întâlnite în timpul instalării și recomandări de configurare, fiind astfel un manual practic pentru întreaga echipă.
+4. Transfer de cunoștințe și suport pentru echipă: Ulterior, am facilitat sesiuni de training pentru colegii mei, prezentând documentația creată și ghidându-i personal în procesul de instalare a suitei de tool-uri pe propriile laptopuri. Am oferit suport continuu pentru a depăși rapid orice obstacol întâmpinat.
+Rezultatul colaborării: Această abordare a facilitat o tranziție lină către mediul de dezvoltare, a asigurat că toți membrii echipei noastre au avut acces la unelte corect configurate de la bun început și a consolidat o relație de încredere cu echipa IT a clientului, punând bazele unui proiect de succes.
