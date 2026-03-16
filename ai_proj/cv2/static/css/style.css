@@ -1,0 +1,273 @@
+/* style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Similar font style */
+    background-color: #f8f9fa; /* Light grey background */
+}
+
+.cv-container {
+    max-width: 960px; /* Standard CV width */
+    margin: 30px auto;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.banner-image {
+    width: 100%;
+    height: 250px; /* Adjust height as needed */
+    background-image: url('../../assets/cover.png'); /* Path relative to style.css */
+    background-size: cover; /* Cover the entire section */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    border-radius: 8px 8px 0 0; /* Match container's top border radius */
+    margin-bottom: 20px; /* Space between banner and header */
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 30px; /* Space below header content */
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-top: 40px; /* Add space above header content (below banner) */
+}
+
+.header-section h1 {
+    color: #333;
+    font-weight: 700;
+    font-size: 2.8em; /* Larger name */
+    margin-bottom: 0;
+}
+
+.header-section .title {
+    color: #555;
+    font-size: 1.3em;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.contact-info li {
+    margin-bottom: 7px;
+    font-size: 0.95em;
+    color: #555;
+}
+
+.contact-info li a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-info li a:hover {
+    text-decoration: underline;
+}
+
+.section-title {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #007bff;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #007bff;
+}
+
+.sidebar {
+    border-right: 1px solid #eee; /* Visual separator */
+    padding-right: 30px;
+}
+
+.main-content {
+    padding-left: 30px; /* Space between columns */
+}
+
+.experience-item, .education-item {
+    margin-bottom: 25px;
+}
+
+.experience-item h4, .education-item h4 {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 3px;
+}
+
+.experience-item .company, .education-item .institution {
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 3px;
+}
+
+.experience-item .dates, .education-item .dates {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.experience-item ul, .education-item ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.experience-item li, .education-item li {
+    margin-bottom: 7px;
+    font-size: 0.95em;
+    color: #555;
+}
+
+.skills-section .skill-category {
+    margin-bottom: 15px;
+}
+
+.skills-section .skill-category h5 {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.skills-section .skills-list span {
+    display: inline-block;
+    background-color: #e9ecef; /* Light grey background for tags */
+    border-radius: 4px;
+    padding: 6px 12px;
+    margin: 4px 4px 4px 0; /* Space out the tags */
+    font-size: 0.9em;
+    color: #495057;
+    transition: background-color 0.2s ease;
+}
+
+.skills-section .skills-list span:hover {
+    background-color: #dee2e6;
+}
+
+.languages .lang-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.languages .lang-name {
+    font-weight: 500;
+    color: #444;
+    font-size: 0.95em;
+}
+
+.languages .dots {
+    display: flex;
+}
+
+.languages .dot {
+    width: 14px;
+    height: 14px;
+    background-color: #e0e0e0; /* Default for empty dot */
+    border-radius: 50%;
+    margin-left: 5px;
+    border: 1px solid #ccc;
+}
+
+.languages .dot.filled {
+    background-color: #007bff; /* Filled dot */
+    border-color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .cv-container {
+        padding: 20px;
+        margin: 15px;
+    }
+    .header-section h1 {
+        font-size: 2em;
+    }
+    .header-section .title {
+        font-size: 1.1em;
+    }
+    .section-title {
+        font-size: 1.3em;
+    }
+    .sidebar {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding-right: 0;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+    }
+    .main-content {
+        padding-left: 0;
+    }
+    .experience-item ul, .education-item ul {
+        padding-left: 15px;
+    }
+}
+
+/* Adjustments for specific elements seen in CVs */
+.cert-item, .course-item {
+    margin-bottom: 10px;
+}
+.cert-item strong, .course-item strong {
+    font-size: 1.05em;
+    color: #333;
+}
+.cert-item .institution, .course-item .institution {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Specific skill tag styling from the image */
+.skills-section .skills-list span {
+    background-color: #d0e5ff; /* A slightly blueish tint for tags */
+    color: #004085;
+    border: 1px solid #b8daff;
+}
+
+/* Add specific styling for the "requirements traceability" etc. if they need to stand out */
+.skills-section .skills-list span:nth-of-type(even) {
+    background-color: #e2e3e5; /* Different background for some tags */
+    color: #495057;
+    border: 1px solid #d6d8db;
+}
+
+.skills-section .skill-category h5 {
+    color: #004085; /* Darker blue for category titles */
+}
+
+/* Override Bootstrap defaults for header text to ensure readability on background */
+.header-section h1, .header-section .title, .header-section .contact-info ul, .header-section .contact-info li, .header-section .contact-info a {
+    color: #333 !important; /* Changed to dark color */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.header-section .contact-info {
+    margin-top: 10px;
+}
+.header-section .contact-info li {
+    display: inline-block;
+    margin: 0 15px;
+}
+.header-section .contact-info li:first-child {
+    margin-left: 0;
+}
+.header-section .contact-info li:last-child {
+    margin-right: 0;
+}
+
+@media (max-width: 768px) {
+    .header-section .contact-info li {
+        display: block;
+        margin: 5px 0;
+    }
+    .header-section h1 {
+        font-size: 2em; /* Ensure name is readable on smaller screens */
+    }
+    .header-section .title {
+        font-size: 1.1em;
+    }
+}

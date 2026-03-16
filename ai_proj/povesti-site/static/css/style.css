@@ -1,0 +1,158 @@
+/* style.css */
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Împiedică scroll-ul pe toată pagina */
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.h-100vh {
+    height: 100vh;
+}
+
+.portfolio-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar Styling */
+.sidebar-column {
+    border-right: 1px solid #444;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#storyList {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.list-group-item {
+    background-color: transparent;
+    color: #ccc;
+    border-color: #444;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 12px 15px;
+}
+
+.list-group-item:hover {
+    background-color: #3d444b;
+    color: #fff;
+    padding-left: 20px;
+}
+
+.list-group-item.active {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+/* Main Content Area */
+.content-column {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+/* Centrare Bun Venit */
+#welcomeMessage {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.book-icon-wrapper i {
+    font-size: clamp(5rem, 15vw, 10rem); /* Ajustabil în funcție de ecran */
+    color: #0dcaf0;
+    filter: drop-shadow(0 10px 15px rgba(0, 255, 255, 0.2));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Story Viewer */
+#storyViewer {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 3rem;
+}
+
+.max-width-content {
+    max-width: 800px;
+}
+
+#storyContent {
+    font-size: 1.15rem;
+    line-height: 1.9;
+}
+
+#storyContent h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #212529;
+    border-bottom: 4px solid #0dcaf0;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+#storyContent p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+#storyContent strong {
+    color: #0097b2;
+    font-weight: 700;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 10px;
+}
+
+/* Adaptabilitate Mobil */
+@media (max-width: 767.98px) {
+    html, body {
+        overflow: auto; /* Permitem scroll-ul general pe mobil */
+        height: auto;
+    }
+    .h-100vh, .sidebar-column, .content-column {
+        height: auto;
+    }
+    .sidebar-column {
+        max-height: 50vh; /* Sidebar-ul ocupă jumătate de ecran pe mobil */
+    }
+    #welcomeMessage {
+        min-height: 60vh;
+    }
+}
