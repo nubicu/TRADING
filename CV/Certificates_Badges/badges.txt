@@ -1,0 +1,26 @@
+Dupa parcurgerea cursului, va puteti revendica badge-ul oficial Microsoft AI-900, o recunoaștere utilă pentru CV și profilul vostru LinkedIn.
+
+Cum îți revendici badge-ul Microsoft AI-900
+
+Autentifică-te cu contul tău Microsoft sau creează unul nou folosind butonul Sign in din dreapta sus.
+Deschide linkul de badge: https://learn.microsoft.com/en-us/users/me/achievements?WT.mc_id=ilt_partner_webpage_wwl&ocid=36082….
+Apasă butonul REDEEM pentru a revendica badge-ul.
+După revendicare, îl poți adăuga pe profilul tău LinkedIn sau îl poți distribui pe alte platforme.
+
+In cazul celor pentru care codul de redeem nu este preluat automat din url:
+Redeem Code este: XK8Z56
+
+https://web.yammer.com/main/users/eyJfdHlwZSI6IlVzZXIiLCJpZCI6IjMxNzQwNTQ4MzAwOSJ9
+Va salut, sunt student doctorand si dezvolt un sistem de monitorizare a parametrilor de mediu. Acest sistem stocheaza date despre PM10 si PM2.5 venite de la 2 senzori, iar profesorii coordonatori mi-au sugerat sa introduc in teza o parte de Machine Learning in care sa fac o predictie a valorilor acestor 2 poluanti. Care considerati ca ar fi metoda de a obtine o predictie cu acuratete cat mai buna? Exista un algoritm care da rezultate bune pe asa ceva?
+
+
+Start the exercise at:
+https://aka.ms/rent-predictor
+https://aka.ms/seed-identifier
+https://aka.ms/customer-segmentation
+https://aka.ms/expenses-agent
+https://aka.ms/resume-app
+
+
+Material oficial curs Microsoft AI-900:
+https://aka.ms/mslearn-ai-900

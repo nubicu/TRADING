@@ -1,0 +1,6 @@
+If you're interested in mastering Embedded Linux Porting & Board Bring-Up, you can explore the course here:
+https://embitude.in/elpa/
+
+📺 YouTube (Embedded Linux deep dives):
+https://lnkd.in/gR8T6Pe4
+
