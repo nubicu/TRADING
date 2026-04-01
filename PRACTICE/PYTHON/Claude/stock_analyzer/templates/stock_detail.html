@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Details - Stock Analyzer</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-chart-line"></i> Stock Analyzer Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div id="stockContent">
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <!-- Custom JS for Stock Details -->
+    <script>
+        const symbol = '{{ symbol }}';
+        let priceChart, scoreChart;
+
+        async function loadStockDetails() {
+            try {
+                const response = await fetch(`/api/stock/${symbol}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    document.getElementById('stockContent').innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle"></i> ${data.error}
+                        </div>
+                    `;
+                    return;
+                }
+                
+                renderStockDetails(data.stock, data.history, data.news || []);
+            } catch (error) {
+                console.error('Error loading stock:', error);
+                document.getElementById('stockContent').innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i> Error loading stock data
+                    </div>
+                `;
+            }
+        }
+
+        function renderStockDetails(stock, history, news) {
+            const changeClass = stock.daily_change_percent >= 0 ? 'text-success' : 'text-danger';
+            const changeIcon = stock.daily_change_percent >= 0 ? 'fa-arrow-up' : 'fa-arrow-down';
+            
+            const html = `
+                <!-- Stock Header -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h2>${stock.symbol} - ${stock.company_name}</h2>
+                                <p class="text-muted mb-0">${stock.sector || 'N/A'}</p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <h1 class="mb-0">$${stock.current_price?.toFixed(2) || 'N/A'}</h1>
+                                <p class="${changeClass} mb-0">
+                                    <i class="fas ${changeIcon}"></i> 
+                                    ${stock.daily_change_percent?.toFixed(2) || '0.00'}%
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scoring Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">Total Score</h6>
+                                <h1 class="score-display score-${getScoreClass(stock.total_score)}">
+                                    ${stock.total_score?.toFixed(1) || '0'}
+                                </h1>
+                                <span class="badge bg-${getSentimentBadge(stock.sentiment_class)}">
+                                    ${stock.sentiment_class || 'N/A'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">Sentiment</h6>
+                                <h1 class="score-display">${stock.sentiment_score?.toFixed(1) || '0'}</h1>
+                                <small class="text-muted">35% weight</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">Technical</h6>
+                                <h1 class="score-display">${stock.technical_score?.toFixed(1) || '0'}</h1>
+                                <small class="text-muted">40% weight</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">Fundamental</h6>
+                                <h1 class="score-display">${stock.fundamental_score?.toFixed(1) || '0'}</h1>
+                                <small class="text-muted">25% weight</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Targets -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="text-muted">Current Price</h6>
+                                <h3>$${stock.current_price?.toFixed(2) || 'N/A'}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <h6 class="text-muted">Target Price</h6>
+                                <h3 class="text-success">$${stock.target_price?.toFixed(2) || 'N/A'}</h3>
+                                <small class="text-muted">
+                                    Upside: ${stock.target_price && stock.current_price ? 
+                                        ((stock.target_price - stock.current_price) / stock.current_price * 100).toFixed(1) : '0'}%
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-danger">
+                            <div class="card-body">
+                                <h6 class="text-muted">Stop Loss</h6>
+                                <h3 class="text-danger">$${stock.stop_loss?.toFixed(2) || 'N/A'}</h3>
+                                <small class="text-muted">
+                                    Risk: ${stock.stop_loss && stock.current_price ? 
+                                        ((stock.current_price - stock.stop_loss) / stock.current_price * 100).toFixed(1) : '0'}%
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Price History (30 days)</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="priceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Score History (30 days)</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="scoreChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Indicators -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Technical Indicators</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td>RSI</td>
+                                        <td class="text-end"><strong>${stock.rsi?.toFixed(2) || 'N/A'}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>MACD</td>
+                                        <td class="text-end"><strong>${stock.macd?.toFixed(4) || 'N/A'}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SMA 50</td>
+                                        <td class="text-end"><strong>$${stock.sma_50?.toFixed(2) || 'N/A'}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SMA 200</td>
+                                        <td class="text-end"><strong>$${stock.sma_200?.toFixed(2) || 'N/A'}</strong></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Fundamental Metrics</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td>P/E Ratio</td>
+                                        <td class="text-end"><strong>${stock.pe_ratio?.toFixed(2) || 'N/A'}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EPS</td>
+                                        <td class="text-end"><strong>$${stock.eps?.toFixed(2) || 'N/A'}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EPS Growth</td>
+                                        <td class="text-end"><strong>${stock.eps_growth?.toFixed(2) || 'N/A'}%</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Market Cap</td>
+                                        <td class="text-end"><strong>${formatMarketCap(stock.market_cap)}</strong></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Latest News -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-newspaper"></i> Latest News
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="newsContainer">
+                                    <div class="text-center">
+                                        <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                            <span class="visually-hidden">Loading news...</span>
+                                        </div>
+                                        <small class="text-muted ms-2">Loading latest news...</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('stockContent').innerHTML = html;
+            
+            // Render news
+            renderNews(news);
+            
+            // Create charts
+            if (history && history.length > 0) {
+                createPriceChart(history);
+                createScoreChart(history);
+            }
+        }
+
+        function createPriceChart(history) {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            priceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: history.map(h => new Date(h.date).toLocaleDateString()),
+                    datasets: [{
+                        label: 'Price',
+                        data: history.map(h => h.price),
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function createScoreChart(history) {
+            const ctx = document.getElementById('scoreChart').getContext('2d');
+            scoreChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: history.map(h => new Date(h.date).toLocaleDateString()),
+                    datasets: [{
+                        label: 'Total Score',
+                        data: history.map(h => h.score),
+                        borderColor: 'rgb(153, 102, 255)',
+                        backgroundColor: 'rgba(153, 102, 255, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderNews(news) {
+            const newsContainer = document.getElementById('newsContainer');
+            
+            if (!news || news.length === 0) {
+                newsContainer.innerHTML = `
+                    <div class="text-center text-muted">
+                        <i class="fas fa-info-circle fa-2x mb-2"></i>
+                        <p>No recent news available</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let newsHtml = '';
+            news.forEach((article, index) => {
+                const sentimentClass = article.sentiment > 0.1 ? 'text-success' : 
+                                     article.sentiment < -0.1 ? 'text-danger' : 'text-muted';
+                const sentimentIcon = article.sentiment > 0.1 ? 'fa-smile' : 
+                                    article.sentiment < -0.1 ? 'fa-frown' : 'fa-meh';
+                const sentimentText = article.sentiment > 0.1 ? 'Positive' : 
+                                    article.sentiment < -0.1 ? 'Negative' : 'Neutral';
+                
+                const publishedDate = new Date(article.published_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                newsHtml += `
+                    <div class="news-item mb-3 pb-3 ${index < news.length - 1 ? 'border-bottom' : ''}">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="mb-1">
+                                <a href="${article.url}" target="_blank" class="text-decoration-none">
+                                    ${article.title}
+                                </a>
+                            </h6>
+                            <small class="${sentimentClass}">
+                                <i class="fas ${sentimentIcon}"></i> ${sentimentText}
+                            </small>
+                        </div>
+                        <p class="text-muted small mb-2">${article.description}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-newspaper"></i> ${article.source}
+                            </small>
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i> ${publishedDate}
+                            </small>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            newsContainer.innerHTML = newsHtml;
+        }
+
+        function getSentimentBadge(sentiment) {
+            const badges = {
+                'Strong Bullish': 'success',
+                'Bullish': 'primary',
+                'Neutral': 'secondary',
+                'Bearish': 'warning',
+                'Strong Bearish': 'danger'
+            };
+            return badges[sentiment] || 'secondary';
+        }
+
+        function formatMarketCap(cap) {
+            if (!cap) return 'N/A';
+            if (cap >= 1e12) return `$${(cap / 1e12).toFixed(2)}T`;
+            if (cap >= 1e9) return `$${(cap / 1e9).toFixed(2)}B`;
+            if (cap >= 1e6) return `$${(cap / 1e6).toFixed(2)}M`;
+            return `$${cap}`;
+        }
+
+        // Load on page load
+        document.addEventListener('DOMContentLoaded', loadStockDetails);
+    </script>
+</body>
+</html>

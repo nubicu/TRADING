@@ -1,0 +1,8 @@
+unzip stock_analyzer.zip
+cd stock_analyzer
+pip install -r requirements.txt
+python app.py
+### 4. Deschide în browser
+http://localhost:5000
+
+

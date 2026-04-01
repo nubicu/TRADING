@@ -1,0 +1,13 @@
+# Stock Market Analyzer - Environment Variables
+# Copiați acest fișier în .env și completați cu API keys-urile voastre
+
+# Alpha Vantage API Key (opțional - pentru date financiare real-time)
+# Obține gratuit de la: https://www.alphavantage.co/support/#api-key
+ALPHA_VANTAGE_API_KEY=''
+
+# News API Key (opțional - pentru sentiment analysis din știri)
+# Obține gratuit de la: https://newsapi.org/register
+NEWS_API_KEY=''
+
+# IMPORTANT: Fără aceste keys, aplicația va folosi date simulate pentru demo.
+# Funcționalitatea completă este disponibilă și fără keys pentru testare.
