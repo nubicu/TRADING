@@ -574,10 +574,16 @@ class DataFetcher:
             debt_to_equity = statistics.get('debtToEquity', {}).get('raw') or financial.get('debtToEquity', {}).get('raw')
             market_cap = summary_detail.get('marketCap', {}).get('raw')
 
+            # Calculate PEG ratio: PE / EPS Growth Rate (EPS growth is in %)
+            peg_ratio = None
+            if pe_ratio is not None and eps_growth is not None and eps_growth != 0:
+                peg_ratio = pe_ratio / (eps_growth / 100) if eps_growth > 0 else None
+
             return {
                 'pe_ratio': float(pe_ratio) if pe_ratio is not None else None,
                 'eps': float(eps) if eps is not None else None,
-                'eps_growth': float(eps_growth * 100) if eps_growth is not None and isinstance(eps_growth, float) else eps_growth if eps_growth is not None else None,
+                'eps_growth': float(eps_growth) if eps_growth is not None else None,
+                'peg_ratio': float(peg_ratio) if peg_ratio is not None else None,
                 'revenue_growth': float(revenue_growth * 100) if revenue_growth is not None else None,
                 'debt_to_equity': float(debt_to_equity) if debt_to_equity is not None else None,
                 'market_cap': int(market_cap) if market_cap is not None else None,
@@ -1158,10 +1164,15 @@ class DataFetcher:
     
     def _generate_demo_fundamental_data(self, symbol):
         """Generează date fundamentale simulate"""
+        pe_ratio = round(random.uniform(10, 45), 2)
+        eps_growth = round(random.uniform(-10, 25), 2)
+        peg_ratio = pe_ratio / (eps_growth / 100) if eps_growth > 0 else None
+        
         return {
-            'pe_ratio': round(random.uniform(10, 45), 2),
+            'pe_ratio': pe_ratio,
             'eps': round(random.uniform(2, 15), 2),
-            'eps_growth': round(random.uniform(-10, 25), 2),
+            'eps_growth': eps_growth,
+            'peg_ratio': round(peg_ratio, 2) if peg_ratio else None,
             'revenue_growth': round(random.uniform(-5, 20), 2),
             'debt_to_equity': round(random.uniform(0.2, 2.5), 2),
             'market_cap': random.randint(50000000000, 3000000000000),

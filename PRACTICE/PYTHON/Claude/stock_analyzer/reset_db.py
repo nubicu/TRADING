@@ -50,7 +50,7 @@ with app.app_context():
                 'sentiment_score', 'technical_score', 'fundamental_score', 'total_score',
                 'news_sentiment', 'social_sentiment', 'market_correlation',
                 'rsi', 'macd', 'macd_signal', 'sma_50', 'sma_200', 'volume', 'avg_volume',
-                'pe_ratio', 'eps', 'eps_growth', 'revenue_growth', 'debt_to_equity', 'market_cap',
+                'pe_ratio', 'eps', 'eps_growth', 'peg_ratio', 'revenue_growth', 'debt_to_equity', 'market_cap',
                 'sentiment_class', 'recommendation'
             ]
             

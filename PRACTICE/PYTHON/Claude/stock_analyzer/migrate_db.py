@@ -2,8 +2,8 @@ import sqlite3
 from pathlib import Path
 
 # Determine actual DB file path
-# Use instance path to match app behavior
-db_path = Path('instance') / 'database.db'
+# Use root path to match app behavior
+db_path = Path('database.db')
 if not db_path.exists():
     raise FileNotFoundError(db_path)
 
@@ -20,6 +20,10 @@ if 'last_detail_fetched' not in columns:
 if 'cached_news' not in columns:
     print('adding cached_news')
     c.execute("ALTER TABLE stocks ADD COLUMN cached_news TEXT")
+
+if 'peg_ratio' not in columns:
+    print('adding peg_ratio')
+    c.execute("ALTER TABLE stocks ADD COLUMN peg_ratio FLOAT")
 
 conn.commit()
 print('done')

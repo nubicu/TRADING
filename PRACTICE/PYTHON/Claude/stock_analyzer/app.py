@@ -51,7 +51,7 @@ def get_stocks():
     """Returnează toate acțiunile cu scoring - cu suport pentru paginare"""
     # Parametri de filtrare și sortare
     sentiment_filter = request.args.get('sentiment')
-    min_score = request.args.get('min_score', type=float)
+    min_score = request.args.get('min_score', 65, type=float)
     max_score = request.args.get('max_score', type=float)
     sector = request.args.get('sector')
     sort_by = request.args.get('sort_by', 'total_score')
@@ -503,20 +503,15 @@ def init_database():
 
     """Initialize database și populează cu date inițiale"""
     with app.app_context():
-        # Create tables
+        # Create tables only if they don't exist
         db.create_all()
         
         # Check if we need to populate
-        if Stock.query.count() == 0:
-            print("📊 Database is empty, running initial data fetch...")
-            
-            # Trigger initial update
-            with app.test_client() as client:
-                client.post('/api/update', json={'update_type': 'initial'})
-            
-            print("✅ Initial data loaded successfully!")
+        stock_count = Stock.query.count()
+        if stock_count == 0:
+            print("📊 Database is empty. Run manual update from Dashboard or use reset_db.py")
         else:
-            print(f"✅ Database already contains {Stock.query.count()} stocks")
+            print(f"✅ Database already contains {stock_count} stocks")
 
 
 if __name__ == '__main__':

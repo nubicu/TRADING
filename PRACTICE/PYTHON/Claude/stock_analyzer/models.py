@@ -46,6 +46,7 @@ class Stock(db.Model):
     pe_ratio = db.Column(db.Float)
     eps = db.Column(db.Float)
     eps_growth = db.Column(db.Float)
+    peg_ratio = db.Column(db.Float)
     revenue_growth = db.Column(db.Float)
     debt_to_equity = db.Column(db.Float)
     market_cap = db.Column(db.BigInteger)
@@ -96,6 +97,7 @@ class Stock(db.Model):
             'pe_ratio': round(self.pe_ratio, 2) if self.pe_ratio else None,
             'eps': round(self.eps, 2) if self.eps else None,
             'eps_growth': round(self.eps_growth, 2) if self.eps_growth else None,
+            'peg_ratio': round(self.peg_ratio, 2) if self.peg_ratio else None,
             'revenue_growth': round(self.revenue_growth, 2) if self.revenue_growth else None,
             'debt_to_equity': round(self.debt_to_equity, 2) if self.debt_to_equity else None,
             'market_cap': self.market_cap,

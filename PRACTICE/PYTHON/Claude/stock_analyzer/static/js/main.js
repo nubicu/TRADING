@@ -96,7 +96,7 @@ function renderStocksTable() {
     if (filteredStocks.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="14" class="text-center text-muted">
+                <td colspan="15" class="text-center text-muted">
                     No stocks found matching your criteria
                 </td>
             </tr>
@@ -132,6 +132,7 @@ function renderStocksTable() {
                 <td><small>${stock.sentiment_score?.toFixed(1) || '0'}</small></td>
                 <td><small>${stock.technical_score?.toFixed(1) || '0'}</small></td>
                 <td><small>${stock.fundamental_score?.toFixed(1) || '0'}</small></td>
+                <td><small>${stock.peg_ratio !== null && stock.peg_ratio !== undefined ? stock.peg_ratio.toFixed(2) : 'N/A'}</small></td>
                 <td>
                     <span class="badge ${sentimentBadge}">
                         ${stock.sentiment_class || 'N/A'}
