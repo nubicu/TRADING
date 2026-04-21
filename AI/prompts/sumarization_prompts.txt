@@ -12,3 +12,12 @@ As a project manager, summarize the key findings of this report in under 200 wor
 
 5. Key point policy brief
 Give a bullet point summary of the following policy document, listing the main objectives, proposed strategies, and potential challenges in under 100 words.
+
+
+Tema 1: Claude Code AI workshop
+1. Ce face taskul?
+Verifica cum evolueaza pretul unei actiuni, pe baza stirilor noi si a anumitor indici (RSI, MACD) pentru a putea prezice ce evolutie va avea pe termen scurt, mediu si lung.
+2. Câte ore/săptămână îți ia?
+10 ore/saptamana
+3. Ce rezultat vrei să obții?
+Un tool care sa faca atat partea de documentare, cat si partea de predictie, astfel incat sa furnizeze semnale de buy si sell in momentul in care observa o anumita tendinta.
