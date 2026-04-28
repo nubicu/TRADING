@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills Pack — Claude Code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET ========== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+/* ========== VARIABLES ========== */
+:root{
+  --bg:#06060a;--surface:#0e0e18;--surface-2:#141420;
+  --border:#1e1e30;--border-light:#2a2a42;
+  --text:#ededf2;--text-dim:#8e8ea8;--text-muted:#55556e;
+  --accent-1:#34d399;--accent-2:#fbbf24;--accent-3:#a78bfa;--accent-4:#fb7185;
+  --accent-5:#22d3ee;--accent-6:#60a5fa;--accent-7:#fb923c;--accent-8:#e879f9;
+  --font-d:'Syne',sans-serif;--font-b:'Outfit',sans-serif;--font-m:'JetBrains Mono',monospace;
+  --mx:1140px;--gutter:clamp(1.25rem,4vw,2.5rem);
+  --radius:10px;
+}
+
+/* ========== BASE ========== */
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-b);background:var(--bg);color:var(--text);
+  line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:rgba(167,139,250,.25);color:#fff}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:4px}
+a{color:var(--accent-6);text-decoration:none;transition:color .2s}
+a:hover{color:var(--accent-3)}
+
+/* ========== NOISE OVERLAY ========== */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+}
+
+/* ========== LAYOUT ========== */
+.wrap{max-width:var(--mx);margin:0 auto;padding:0 var(--gutter)}
+.section{padding:clamp(4rem,10vw,7rem) 0}
+.section-label{
+  font-family:var(--font-d);font-weight:600;font-size:.8rem;
+  text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);
+  margin-bottom:.75rem;
+}
+.section-title{
+  font-family:var(--font-d);font-weight:800;
+  font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.15;
+  letter-spacing:-.02em;margin-bottom:1rem;
+}
+.section-title::before{
+  content:'';display:block;width:2.5rem;height:3px;
+  background:linear-gradient(90deg,var(--accent-3),var(--accent-6));
+  border-radius:2px;margin-bottom:1.25rem;
+}
+.section-desc{color:var(--text-dim);max-width:600px;font-size:1.05rem;margin-bottom:3rem}
+
+/* ========== HERO ========== */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  justify-content:center;text-align:center;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 700px 500px at 20% 35%,rgba(167,139,250,.1),transparent),
+    radial-gradient(ellipse 600px 400px at 80% 55%,rgba(34,211,238,.08),transparent),
+    radial-gradient(ellipse 500px 400px at 50% 95%,rgba(251,191,36,.05),transparent);
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.hero-content{position:relative;z-index:1;padding:2rem var(--gutter)}
+.hero-badge{
+  display:inline-block;font-family:var(--font-m);font-size:.7rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);
+  border:1px solid var(--border);border-radius:100px;
+  padding:.4rem 1.25rem;margin-bottom:2.5rem;
+}
+.hero h1{
+  font-family:var(--font-d);font-weight:800;
+  font-size:clamp(3.5rem,12vw,8.5rem);line-height:.92;
+  letter-spacing:-.04em;margin-bottom:1.5rem;
+  background:linear-gradient(135deg,var(--text) 40%,var(--text-dim));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero h1 span{
+  display:block;font-size:.45em;font-weight:600;
+  letter-spacing:.02em;opacity:.5;margin-top:.35em;
+  -webkit-text-fill-color:var(--text-dim);
+}
+.hero-sub{
+  color:var(--text-dim);font-size:clamp(1rem,2vw,1.2rem);
+  max-width:520px;margin:0 auto 2.5rem;line-height:1.6;
+}
+.hero-tags{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;
+  margin-bottom:3rem;
+}
+.hero-tag{
+  font-family:var(--font-m);font-size:.65rem;letter-spacing:.05em;
+  color:var(--text-muted);background:var(--surface);
+  border:1px solid var(--border);border-radius:100px;
+  padding:.3rem .85rem;
+}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-b);font-weight:500;font-size:.9rem;
+  padding:.75rem 1.75rem;border-radius:100px;border:none;
+  cursor:pointer;transition:all .25s;text-decoration:none;
+}
+.btn-primary{
+  background:var(--text);color:var(--bg);
+}
+.btn-primary:hover{background:#fff;transform:translateY(-1px);box-shadow:0 8px 30px rgba(255,255,255,.1)}
+.btn-ghost{
+  background:transparent;color:var(--text-dim);border:1px solid var(--border);
+}
+.btn-ghost:hover{color:var(--text);border-color:var(--border-light)}
+.scroll-hint{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  color:var(--text-muted);font-size:.75rem;letter-spacing:.1em;
+  text-transform:uppercase;font-family:var(--font-m);
+  animation:float 2.5s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* ========== INSTALL ========== */
+.install-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
+.install-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:2rem;position:relative;overflow:hidden;
+  transition:border-color .3s;
+}
+.install-card:hover{border-color:var(--border-light)}
+.install-num{
+  font-family:var(--font-d);font-weight:800;font-size:2.5rem;
+  color:var(--accent-3);opacity:.2;line-height:1;margin-bottom:.75rem;
+}
+.install-card h3{
+  font-family:var(--font-d);font-weight:700;font-size:1.1rem;
+  margin-bottom:.75rem;
+}
+.install-card p{color:var(--text-dim);font-size:.9rem;margin-bottom:1rem}
+.install-code{
+  background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:6px;
+  padding:.6rem .9rem;font-family:var(--font-m);font-size:.75rem;
+  color:var(--accent-5);overflow-x:auto;white-space:nowrap;
+}
+.install-card .tag-best{
+  position:absolute;top:1rem;right:1rem;
+  font-family:var(--font-m);font-size:.6rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--accent-1);
+  background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);
+  border-radius:100px;padding:.2rem .65rem;
+}
+
+/* ========== SKILLS GRID ========== */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.25rem}
+.skill-card{
+  --accent:var(--accent-1);
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:2rem 2rem 1.75rem;
+  position:relative;overflow:hidden;
+  transition:border-color .35s,box-shadow .35s,transform .35s;
+}
+.skill-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--accent);opacity:.7;transition:opacity .3s;
+}
+.skill-card:hover{
+  border-color:color-mix(in srgb,var(--accent) 25%,transparent);
+  box-shadow:0 0 50px color-mix(in srgb,var(--accent) 5%,transparent);
+  transform:translateY(-2px);
+}
+.skill-card:hover::before{opacity:1}
+.skill-num{
+  font-family:var(--font-d);font-weight:800;font-size:3rem;
+  color:var(--accent);opacity:.25;line-height:1;margin-bottom:.5rem;
+  letter-spacing:-.02em;
+}
+.skill-name{
+  font-family:var(--font-d);font-weight:700;font-size:1.15rem;
+  margin-bottom:.65rem;letter-spacing:-.01em;
+}
+.skill-desc{color:var(--text-dim);font-size:.9rem;line-height:1.6;margin-bottom:1.25rem}
+.skill-prompt{
+  background:rgba(0,0,0,.35);border:1px solid var(--border);
+  border-left:3px solid var(--accent);border-radius:6px;
+  padding:.7rem 1rem;font-family:var(--font-m);font-size:.72rem;
+  color:var(--text-dim);line-height:1.55;margin-bottom:1.25rem;
+}
+.skill-prompt::before{content:'> ';color:var(--accent);opacity:.5}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.skill-tag{
+  font-family:var(--font-m);font-size:.6rem;letter-spacing:.04em;
+  color:var(--text-muted);background:var(--surface-2);
+  border:1px solid var(--border);border-radius:100px;
+  padding:.15rem .55rem;
+}
+
+/* ========== TIPS ========== */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+.tip-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.75rem;
+  transition:border-color .3s;
+}
+.tip-card:hover{border-color:var(--border-light)}
+.tip-icon{
+  font-size:1.5rem;margin-bottom:.75rem;display:block;
+  width:2.75rem;height:2.75rem;line-height:2.75rem;text-align:center;
+  background:var(--surface-2);border:1px solid var(--border);border-radius:8px;
+}
+.tip-card h3{
+  font-family:var(--font-d);font-weight:700;font-size:1rem;
+  margin-bottom:.5rem;
+}
+.tip-card p{color:var(--text-dim);font-size:.85rem;line-height:1.55}
+
+/* ========== FOOTER ========== */
+.footer{
+  border-top:1px solid var(--border);padding:3rem 0;
+  text-align:center;color:var(--text-muted);font-size:.8rem;
+}
+.footer-brand{
+  font-family:var(--font-d);font-weight:700;font-size:1rem;
+  color:var(--text-dim);margin-bottom:.5rem;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-badge{animation:fadeUp .7s ease both .1s}
+.hero h1{animation:fadeUp .7s ease both .25s}
+.hero-sub{animation:fadeUp .7s ease both .4s}
+.hero-tags{animation:fadeUp .7s ease both .5s}
+.hero-actions{animation:fadeUp .7s ease both .6s}
+.scroll-hint{animation:fadeUp .7s ease both .8s,float 2.5s ease-in-out .8s infinite}
+
+[data-animate]{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+[data-animate].visible{opacity:1;transform:translateY(0)}
+[data-animate][data-delay="1"]{transition-delay:.1s}
+[data-animate][data-delay="2"]{transition-delay:.2s}
+[data-animate][data-delay="3"]{transition-delay:.3s}
+[data-animate][data-delay="4"]{transition-delay:.4s}
+[data-animate][data-delay="5"]{transition-delay:.5s}
+[data-animate][data-delay="6"]{transition-delay:.6s}
+[data-animate][data-delay="7"]{transition-delay:.7s}
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:640px){
+  .skills-grid{grid-template-columns:1fr}
+  .hero h1{font-size:clamp(2.5rem,15vw,4rem)}
+  .hero-sub{font-size:.95rem}
+  .install-grid{grid-template-columns:1fr}
+  .tips-grid{grid-template-columns:1fr}
+  .skill-card{padding:1.5rem}
+}
+
+/* ========== PRINT ========== */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:#fff!important;color:#111!important}
+  body::after{display:none}
+  .hero{min-height:auto;padding:3rem 0;page-break-after:always}
+  .hero-bg,.scroll-hint{display:none}
+  .hero h1{
+    background:none;-webkit-text-fill-color:#111;color:#111;
+    font-size:3.5rem;
+  }
+  .hero h1 span{-webkit-text-fill-color:#444;color:#444}
+  .hero-badge{color:#666;border-color:#ccc}
+  .hero-sub{color:#555}
+  .hero-tags{display:none}
+  .hero-actions{display:none}
+  .section{padding:2rem 0}
+  .section-title{font-size:1.75rem;color:#111}
+  .section-title::before{background:#111;height:2px}
+  .section-desc{color:#555}
+  .section-label{color:#888}
+  .install-grid,.skills-grid,.tips-grid{gap:1rem}
+  .install-card,.skill-card,.tip-card{
+    background:#fafafa!important;border:1px solid #ddd!important;
+    break-inside:avoid;box-shadow:none!important;transform:none!important;
+  }
+  .install-card:hover,.skill-card:hover,.tip-card:hover{transform:none!important;box-shadow:none!important}
+  .install-num{color:#111;opacity:.15}
+  .install-card h3{color:#111}
+  .install-card p{color:#555}
+  .install-code{background:#f0f0f0!important;border-color:#ddd!important;color:#333!important}
+  .tag-best{color:#16a34a!important;background:#f0fdf4!important;border-color:#bbf7d0!important}
+  .skill-card::before{opacity:1}
+  .skill-num{opacity:.12;color:#111}
+  .skill-name{color:#111}
+  .skill-desc{color:#555}
+  .skill-prompt{
+    background:#f5f5f5!important;border-color:#ddd!important;
+    border-left-color:#333!important;color:#333!important;
+  }
+  .skill-prompt::before{color:#333}
+  .skill-tag{background:#f0f0f0!important;border-color:#ddd!important;color:#555!important}
+  .tip-icon{background:#f0f0f0!important;border-color:#ddd!important}
+  .tip-card h3{color:#111}
+  .tip-card p{color:#555}
+  .footer{color:#999;border-color:#ddd}
+  .footer-brand{color:#666}
+  [data-animate]{opacity:1!important;transform:none!important}
+  .btn{display:none!important}
+
+  #skills{page-break-before:always}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  #tips{page-break-before:always}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Claude Code</div>
+    <h1>Skills<br>Pack<span>8 skill-uri profesionale</span></h1>
+    <p class="hero-sub">Transformă Claude Code într-un specialist pe finanțe, marketing, research, organizare, branding și generare de prompturi.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Finanțe</span>
+      <span class="hero-tag">Branding</span>
+      <span class="hero-tag">Brainstorming</span>
+      <span class="hero-tag">Marketing</span>
+      <span class="hero-tag">Research</span>
+      <span class="hero-tag">Organizare</span>
+      <span class="hero-tag">Prompturi</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#skills" class="btn btn-primary">Descoperă skill-urile</a>
+      <button onclick="window.print()" class="btn btn-ghost">Salvează PDF</button>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll ↓</div>
+</header>
+
+<!-- ==================== INSTALARE ==================== -->
+<section class="section" id="install">
+  <div class="wrap">
+    <div class="section-label">Cum pornești</div>
+    <h2 class="section-title" data-animate>Instalare</h2>
+    <p class="section-desc" data-animate data-delay="1">Trei moduri de a folosi skill-urile. Începe cu varianta 1 — e cea mai simplă.</p>
+
+    <div class="install-grid">
+      <div class="install-card" data-animate data-delay="1">
+        <span class="tag-best">Cel mai simplu</span>
+        <div class="install-num">01</div>
+        <h3>Deschide în VS Code și pornește Claude</h3>
+        <p>Deschide VS Code, apoi <strong>File → Open Folder</strong> și selectează folderul <strong>skills-pack</strong>. Deschide terminalul din VS Code (<strong>Terminal → New Terminal</strong>) și scrie comanda de mai jos. Skill-urile sunt detectate automat — gata, poți lucra!</p>
+        <div class="install-code">claude --dangerously-skip-permissions</div>
+      </div>
+      <div class="install-card" data-animate data-delay="2">
+        <div class="install-num">02</div>
+        <h3>Copiază skill-urile în alt proiect</h3>
+        <p>Dacă vrei aceste skill-uri într-un proiect existent: copiază folderul <strong>.claude</strong> (cu tot ce e în el) din skills-pack și pune-l în folderul proiectului tău. Data viitoare când pornești Claude acolo, le va detecta automat.</p>
+        <div class="install-code">Copiază folderul .claude/ în proiectul tău</div>
+      </div>
+      <div class="install-card" data-animate data-delay="3">
+        <div class="install-num">03</div>
+        <h3>Instalare globală (peste tot)</h3>
+        <p>Ca să ai skill-urile disponibile în orice proiect: copiază folderele de skill-uri în locația globală Claude. Pe Windows: <strong>C:\Users\NUMELE_TAU\.claude\skills\</strong>. Pe Mac/Linux: <strong>~/.claude/skills/</strong>.</p>
+        <div class="install-code">Windows: %USERPROFILE%\.claude\skills\</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SKILL-URI ==================== -->
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-label">Capabilități</div>
+    <h2 class="section-title" data-animate>Skill-uri incluse</h2>
+    <p class="section-desc" data-animate data-delay="1">Fiecare skill transformă Claude Code într-un specialist. Activează-l cu o singură propoziție.</p>
+
+    <div class="skills-grid">
+
+      <!-- SKILL 1 -->
+      <article class="skill-card" style="--accent:var(--accent-1)" data-animate data-delay="1">
+        <div class="skill-num">01</div>
+        <h3 class="skill-name">Analyzing Financial Statements</h3>
+        <p class="skill-desc">Calculează și interpretează indicatori financiari cheie — profitabilitate, lichiditate, îndatorare, eficiență și valuare — din orice format de raport financiar.</p>
+        <div class="skill-prompt">Analizează acest raport financiar și calculează toți indicatorii cheie</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Excel</span>
+          <span class="skill-tag">CSV</span>
+          <span class="skill-tag">PDF</span>
+          <span class="skill-tag">ROE</span>
+          <span class="skill-tag">P/E</span>
+          <span class="skill-tag">DCF</span>
+        </div>
+      </article>
+
+      <!-- SKILL 2 -->
+      <article class="skill-card" style="--accent:var(--accent-2)" data-animate data-delay="2">
+        <div class="skill-num">02</div>
+        <h3 class="skill-name">Applying Brand Guidelines</h3>
+        <p class="skill-desc">Aplică consistent culorile, fonturile, layout-ul și tonul de comunicare al brandului tău pe toate documentele generate de Claude.</p>
+        <div class="skill-prompt">Creează o prezentare PowerPoint cu branding-ul nostru despre rezultatele Q3</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PowerPoint</span>
+          <span class="skill-tag">PDF</span>
+          <span class="skill-tag">Excel</span>
+          <span class="skill-tag">Customizabil</span>
+        </div>
+      </article>
+
+      <!-- SKILL 3 -->
+      <article class="skill-card" style="--accent:var(--accent-3)" data-animate data-delay="3">
+        <div class="skill-num">03</div>
+        <h3 class="skill-name">Brainstorming</h3>
+        <p class="skill-desc">Explorare structurată a ideilor cu metodologia Design Thinking. Generează 2-3 abordări diferite cu pro și contra înainte de implementare.</p>
+        <div class="skill-prompt">Vreau să adaug un sistem de notificări în aplicație — hai să facem brainstorming</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Design Thinking</span>
+          <span class="skill-tag">Planning</span>
+          <span class="skill-tag">Pro/Contra</span>
+        </div>
+      </article>
+
+      <!-- SKILL 4 -->
+      <article class="skill-card" style="--accent:var(--accent-4)" data-animate data-delay="4">
+        <div class="skill-num">04</div>
+        <h3 class="skill-name">Competitive Ads Extractor</h3>
+        <p class="skill-desc">Extrage și analizează reclamele concurenței din Facebook Ad Library și LinkedIn. Identifică mesaje, tipare vizuale și strategii care funcționează.</p>
+        <div class="skill-prompt">Extrage reclamele active de la Notion din Facebook Ad Library și analizează ce funcționează</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Facebook</span>
+          <span class="skill-tag">LinkedIn</span>
+          <span class="skill-tag">Screenshots</span>
+          <span class="skill-tag">Copy Analysis</span>
+        </div>
+      </article>
+
+      <!-- SKILL 5 -->
+      <article class="skill-card" style="--accent:var(--accent-5)" data-animate data-delay="1">
+        <div class="skill-num">05</div>
+        <h3 class="skill-name">Creating Financial Models</h3>
+        <p class="skill-desc">Modele financiare avansate: DCF cu WACC și valoare terminală, analiză de sensibilitate, simulări Monte Carlo și planificare pe scenarii.</p>
+        <div class="skill-prompt">Construiește un model DCF pentru această companie cu datele financiare atașate</div>
+        <div class="skill-tags">
+          <span class="skill-tag">DCF</span>
+          <span class="skill-tag">Monte Carlo</span>
+          <span class="skill-tag">Sensibilitate</span>
+          <span class="skill-tag">Scenarii</span>
+        </div>
+      </article>
+
+      <!-- SKILL 6 -->
+      <article class="skill-card" style="--accent:var(--accent-6)" data-animate data-delay="2">
+        <div class="skill-num">06</div>
+        <h3 class="skill-name">Deep Researcher</h3>
+        <p class="skill-desc">Cercetare comprehensivă în 6 pași: definire scope, explorare, investigație profundă, validare cross-references, sinteză și raport structurat.</p>
+        <div class="skill-prompt">Cercetează piața HR Tech SaaS: dimensiune, jucători principali, tendințe și oportunități</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Multi-sursă</span>
+          <span class="skill-tag">Cross-referencing</span>
+          <span class="skill-tag">Raport structurat</span>
+        </div>
+      </article>
+
+      <!-- SKILL 7 -->
+      <article class="skill-card" style="--accent:var(--accent-7)" data-animate data-delay="3">
+        <div class="skill-num">07</div>
+        <h3 class="skill-name">File Organizer</h3>
+        <p class="skill-desc">Organizează inteligent fișiere și foldere: găsește duplicate prin MD5, sugerează structuri logice și automatizează cleanup-ul cu aprobare prealabilă.</p>
+        <div class="skill-prompt">Organizează folderul meu Downloads — e haos acolo</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Duplicate</span>
+          <span class="skill-tag">Cleanup</span>
+          <span class="skill-tag">Arhivare</span>
+          <span class="skill-tag">Restructurare</span>
+        </div>
+      </article>
+
+      <!-- SKILL 8 -->
+      <article class="skill-card" style="--accent:var(--accent-8)" data-animate data-delay="4">
+        <div class="skill-num">08</div>
+        <h3 class="skill-name">Prompt Factory</h3>
+        <p class="skill-desc">Generează prompturi world-class prin 7 întrebări sau din 69 presets pre-configurate din 15 domenii. Output în XML, Claude, ChatGPT sau Gemini.</p>
+        <div class="skill-prompt">Folosește preset-ul Senior Full-Stack Engineer și generează în format Claude</div>
+        <div class="skill-tags">
+          <span class="skill-tag">69 Presets</span>
+          <span class="skill-tag">XML</span>
+          <span class="skill-tag">Claude</span>
+          <span class="skill-tag">ChatGPT</span>
+          <span class="skill-tag">Gemini</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TIPS ==================== -->
+<section class="section" id="tips">
+  <div class="wrap">
+    <div class="section-label">Workflow</div>
+    <h2 class="section-title" data-animate>Sfaturi de utilizare</h2>
+    <p class="section-desc" data-animate data-delay="1">Patru principii care fac diferența între rezultate mediocre și rezultate excelente.</p>
+
+    <div class="tips-grid">
+      <div class="tip-card" data-animate data-delay="1">
+        <span class="tip-icon">&#9998;</span>
+        <h3>Fii specific</h3>
+        <p>„Cercetează piața EV batteries: dimensiune, top 5 jucători, tendințe" bate „Cercetează ceva despre baterii" de fiecare dată.</p>
+      </div>
+      <div class="tip-card" data-animate data-delay="2">
+        <span class="tip-icon">&#128206;</span>
+        <h3>Atașează fișiere</h3>
+        <p>Trage fișiere direct în Claude Code prin drag & drop. Rapoarte financiare, documente de brand, date CSV — totul funcționează.</p>
+      </div>
+      <div class="tip-card" data-animate data-delay="3">
+        <span class="tip-icon">&#9881;</span>
+        <h3>Combină skill-uri</h3>
+        <p>Deep Researcher pentru research, apoi Financial Models pentru valuare, apoi Brand Guidelines pentru prezentare. Un pipeline complet.</p>
+      </div>
+      <div class="tip-card" data-animate data-delay="4">
+        <span class="tip-icon">&#9997;</span>
+        <h3>Personalizează</h3>
+        <p>Editează SKILL.md din folderul oricărui skill pentru a-l adapta nevoilor tale: culori de brand, template-uri, presets custom.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-brand">Skills Pack — Claude Code</div>
+    <p>Webinar AI Accelerator &middot; 2026</p>
+  </div>
+</footer>
+
+<!-- ==================== SCRIPT ==================== -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
