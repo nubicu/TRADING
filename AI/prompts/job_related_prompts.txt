@@ -7,20 +7,27 @@ Using the inputs below, produce a one-page cover letter (250–350 words) with:
 - A crisp closing with a call to talk. 
 
 Inputs: 
-Role: Remote Entry Level AWS Developer  
+Role: Embedded Software Engineer 
 
-Company: Jobgether  
+Company: LHP Engineering Solutions  
 
 Job priorities (7–10 bullets): 
-- Lead the architecture, design, and implementation of scalable, robust, and secure software solutions 
-- Troubleshoot complex issues in production and non-production environments 
-- Monitor project progress and ensure timely delivery of milestones 
-- Break down complex tasks into actionable development work and allocate assignments to the team 
-- Guide and mentor software engineers to improve their skills and productivity 
-- Review code and provide constructive feedback to ensure quality and maintainability 
-- Conduct code and architecture reviews to maintain quality and engineering standards 
-- Evaluate and recommend new technologies, tools, and processes to improve software development efficiency 
-- Acting as the bridge between the development team and other stakeholders, such as project managers, product managers, and clients 
+- Responsible for analyzing and defining system and software level requirements.
+- Responsible for understanding the embedded design and architecture.
+- Support implementation of components based on design.
+- Participate in overall development and implementation of embedded systems throughout the project lifecycle.
+- Ensure coordination between multiple development teams.
+- Confirm and validate that new software features integrate with system to meet functionality requirements.
+- Support development of technical documentation (requirements, design, testing, reports and others).
+- Support unit/component/module/integration/system level testing.
+- Ensure process compliance and configuration management activities.
+- Work under supervision of a senior engineer to complete specific assignments.
+- Work with Senior Software Engineers to develop features that have a high degree of hardware/software interaction.
+- Ensure regulatory/statutory/legislative compliance for all project work.
+- Participate in code and design reviews.
+- Apply software engineering principles to provide solutions to problems that are identified during the product life cycle.
+- Manage multiple tasks in a fast-paced environment.
+- Follow common problem-solving techniques, such as 5 why’s, fishbone, etc.
 Resume highlights (4–7 bullets with impact): <RESUME_HIGHLIGHTS> 
 Company positives (3–6 bullets): <COMPANY_POSITIVES> 
 Gap info (optional Reason + Length + Skills): <GAP_INFO or N/A> 
@@ -88,3 +95,7 @@ Constraints:
 - 250–350 words total. 
 
 Output: final cover letter (no headers/sign-offs).
+
+
+
+
