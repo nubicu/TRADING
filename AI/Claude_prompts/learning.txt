@@ -1,0 +1,99 @@
+Claude can now compress 3 years of skill learning into 30 days.
+
+The Problem With How People Learn
+Most people learn skills the same way schools taught them. Consume information. Take notes. Hope it sticks. It does not work!
+You spend months reading books, watching tutorials, and taking courses. And still cannot actually do the thing.
+Claude does not teach you information. It builds you a system. That difference is everything.
+
+The Framework — 5 Stages, 10 Prompts, 30 Days
+Every skill has the same learning architecture underneath it. This framework works for coding, writing, design, sales, public speaking, music, trading, or
+anything else worth learning.
+
+Here is exactly how it works:
+-------------------------------
+Stage 1 — Deconstruct the Skill
+-------------------------------
+Prompt 1 — Find the 20 percent that produces 80 percent of results
+"I want to learn [skill] from complete beginner to confidently competent in 30 days. I can dedicate [X hours] per day. Break this skill down into its core components, identify the 20 percent of concepts and techniques that will produce 80 percent of real world results, and tell me exactly what I do not need to learn yet."
+
+Most people waste months learning things that do not matter at the stage they are at. This prompt finds the critical path through any skill. And eliminates everything that is not on it.
+
+Prompt 2 — Understand the mental models behind the skill
+"What are the 5 to 10 fundamental mental models that separate beginners from experts in [skill]? Do not give me techniques or tactics. Give me the underlying thinking patterns that experts use automatically that beginners do not even know exist."
+
+Every skill has a hidden layer beneath the techniques. A way of seeing and thinking that experts develop over years. This prompt surfaces that layer on day one. Giving you the mindset before you build the mechanics.
+
+----------------------------------------
+Stage 2 — Build Your Personal Curriculum
+----------------------------------------
+Prompt 3 — Design your 30 day learning plan
+
+"Build me a day by day 30 day curriculum to learn [skill]. Structure it in four weekly phases:
+Week 1 for foundational concepts, Week 2 for core technique practice, Week 3 for applied projects, Week 4 for refinement and real world application. For each day tell me exactly what to study, what to practice, and how to measure whether I actually learned it."
+
+Most learning has no structure. You consume randomly and practice inconsistently. This prompt builds a curriculum more rigorous than most university courses. Designed entirely around your schedule and your goal.
+
+Prompt 4 — Find the best resources in the world for this skill
+
+"I am learning [skill] at a beginner level targeting [specific outcome]. Curate the absolute best resources for this exact stage. Cover the one book I should read first, the best free online resource, the best paid course if necessary, the practitioner I should follow closely, and the community I should join. Explain why each one made the list over everything else available."
+
+The internet has infinite resources for every skill. Most of them are mediocre. This prompt finds the small number that are genuinely worth your time and ignores everything else.
+
+---------------------------------
+Stage 3 — Accelerate the Practice
+---------------------------------
+Prompt 5 — Build deliberate practice sessions
+
+"Design a deliberate practice session for [specific sub skill within your target skill]. I have [X minutes] available. Structure it with a specific warm up, a focused drill targeting my biggest current weakness, a timed challenge, and a reflection prompt. Make it feel like training, not studying."
+
+Reading about a skill and practicing a skill are completely different activities. Most people do the former and call it the latter. Deliberate practice is the only thing that builds real competence. This prompt designs practice sessions that actually develop the skill in your hands.
+
+Prompt 6 — Learn from your mistakes in real time
+
+"Here is something I attempted in [skill] and here is what went wrong: [describe your attempt and the problem]. Diagnose exactly what I did incorrectly, explain the principle I misunderstood, show me the correct approach, and give me a specific drill to fix this exact weakness before I move on."
+
+The fastest learners in any field are not the most talented. They are the ones who extract the most learning from every mistake. This prompt turns every failure into a precise lesson. Instead of just feeling stuck, you know exactly what to fix next.
+
+--------------------------------------
+Stage 4 — Compress Years of Experience
+--------------------------------------
+Prompt 7 — Interview a world class expert
+
+"Simulate an interview with the world's leading expert in [skill]. I want to ask them the questions that took them years to figure out. Cover: what they wish they had known at the beginning, the most common mistake intermediates make, the counterintuitive truth about this skill most people never discover, and the single thing that made the biggest difference in their own development."
+
+Mentorship used to be the greatest unfair advantage in skill development. Access to someone who had already made all the mistakes and could save you years. Most people never get that access. This prompt gives it to everyone.
+
+Prompt 8 — Stress test your knowledge
+
+"Quiz me on [skill or specific concept within it]. Start with foundational questions and progressively increase difficulty. After each answer, tell me whether I was correct, what I misunderstood, what I am missing in my mental model, and what concept I need to revisit before moving forward. Do not go easy on me."
+
+The biggest illusion in learning is the feeling of understanding. You read something. It makes sense. You think you know it. Then you try to apply it and realize you cannot. This prompt exposes every gap in your knowledge before it becomes a real world problem.
+
+----------------------------
+Stage 5 — Apply and Compound
+----------------------------
+Prompt 9 — Build a real project from day one
+
+"I am on day [X] of learning [skill] and here is my current level: [describe]. Design a project I can build right now that is challenging enough to push my current ability but realistic enough to finish in [X days]. Break it into daily milestones, anticipate where I will get stuck, and tell me how to use this project as a portfolio piece once complete."
+
+Skills learned without application fade within weeks. Skills built into real projects compound forever. This prompt makes sure everything you learn gets applied to something real. From the very first week.
+
+Prompt 10 — Build your 90 day mastery plan
+
+"I have just completed 30 days of learning [skill] and here is where I stand: [describe current level, what you can do, what still feels weak]. Build me a 90 day plan to go from competent to genuinely excellent. Cover what to practice daily, what projects to take on, how to get real feedback from the market, and what milestone I should hit by day 90 that would signal I am ready to call myself skilled."
+
+Thirty days builds a foundation. Ninety days builds real competence. This prompt bridges the gap between learning and mastery. And gives you a clear target to work toward.
+
+Here is why this framework works when everything else fails:
+Traditional learning is passive. This is active.
+Traditional learning is generic. This is built around you.
+Traditional learning measures time spent. This measures competence gained.
+The 10,000 hour rule was never about time. It was about the quality of practice within that time. Claude compresses the quality.
+It gives you expert level feedback from day one. A structured curriculum built around your schedule. Deliberate practice sessions targeting your exact weaknesses. Real time
+diagnosis of every mistake. Access to the thinking patterns of world class practitioners.
+Three years used to be the minimum because feedback was slow. You practiced. You waited. You maybe found a mentor. You slowly figured out what was
+wrong.
+That cycle now takes minutes instead of months. The 30 day timeline is not magic.
+It is what happens when you remove everything that slows learning down and replace it with a system that accelerates everything that matters.
+Pick one skill today. Run Prompt 1 right now.
+Your 30 days starts the moment you do.

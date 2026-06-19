@@ -2,6 +2,13 @@ https://stockcharts.com/freecharts/sectorsummary.html
 
 https://en.macromicro.me/macro/us
 
+WSML - iShares MSCI World Small Cap (Acc)
+BBUS - JPMorgan Betabuilders US Equity (Acc)
+VUAA - Vanguard S&P 500 (Acc)
+IUIT -
+XYLU - Global X S&P500 Covered Call
+NUCL - VanEck Uranium & Nuclear Technologies (Acc)
+
 BEST ETFs:
 Goldman Sachs S&P 500 Premium Income ETF (GPIX) - 8.04% yield monthly
 NEOS S&P 500 High Income ETF (SPYI) - 11.61% yield monthly
