@@ -106,3 +106,33 @@ hour += mins // 60 # find a number of hours hidden in minutes and update the hou
 mins %= 60 # correct minutes to fall in the (0..59) range
 hour %= 24 # correct hours to fall in the (0..23) range
 print(hour,mins, sep=":")
+
+print("-----------")
+text = "OpenEDG Python Institute"
+for letter in text:
+    if letter == "P":
+        break
+    print(letter, end="")
+print("-----------")
+text = "pyxpyxpxy"
+for letter in text:
+    if letter == "x":
+        continue
+    print(letter, end="")
+
+print("-----------")
+
+n = 0
+
+while n != 3:
+    print(n)
+    n += 1
+else:
+    print(n, "else")
+
+print()
+
+for i in range(0, 3):
+    print(i)
+else:
+    print(i, "else")
