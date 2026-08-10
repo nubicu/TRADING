@@ -19,3 +19,314 @@ Analyze my last 20 trades: [insert trades with entry, exit, and results]. Identi
 Prompt 7: Fully Automated Trade Plan
 Create a structured daily trading plan for [insert market/asset]. Include a pre-market scan, opening execution strategy, midday adjustments, and closing approach. Present the plan as a time-stamped checklist I can follow step by step.
 
+
+Acționează ca un equity research analyst + swing trader profesionist.
+
+Obiectivul tău este să găsești cele mai bune oportunități LONG de swing trading din piața SUA pentru următoarele aproximativ 3–20 zile de tranzacționare.
+
+Folosește informații și prețuri ACTUALE. Nu inventa date. Verifică datele din mai multe surse atunci când este posibil.
+
+CAPITAL / RISK MANAGEMENT
+- Capital disponibil: [INTRODU SUMA]
+- Risc maxim per tranzacție: 1% din capital
+- Prefer tranzacții LONG
+- Nu vreau penny stocks
+- Evită companiile extrem de speculative
+- Evită setup-urile cu lichiditate redusă
+- Risk/Reward minim acceptat: 2:1
+- Ideal: 2.5:1 – 4:1
+- Nu forța găsirea unei tranzacții. Dacă piața nu oferă un setup bun, spune "NO TRADE".
+
+────────────────────────────
+ETAPA 1 — FUNDAMENTAL SCREENING
+────────────────────────────
+
+Scanează companii listate pe NYSE și NASDAQ.
+
+Preferabil:
+- Market cap > $2B
+- Preț > $10
+- Average daily volume > 1M shares
+- Dollar volume suficient pentru execuție bună
+- Revenue growth YoY pozitiv sau în accelerare
+- EPS growth pozitiv sau îmbunătățire clară
+- Earnings surprise pozitiv recent
+- Revenue surprise pozitiv
+- Guidance pozitiv sau îmbunătățit
+- Free Cash Flow pozitiv sau în îmbunătățire
+- Operating margin stabilă sau în creștere
+- Debt/EBITDA rezonabil pentru sector
+- Interest coverage sănătos
+- ROIC / ROE bun comparativ cu sectorul
+- Insider buying dacă există
+- Institutional ownership / accumulation
+- Analyst revisions pozitive
+- Creșteri recente ale price targets
+- Short interest: verifică dacă reprezintă risc sau posibil catalyst
+
+Nu compara mecanic multiplii între industrii diferite.
+Compară valuation metrics cu sectorul și istoricul companiei:
+- Forward P/E
+- PEG
+- EV/EBITDA
+- Price/Sales
+- FCF yield
+
+Identifică eventuali CATALYSTS:
+- earnings recente
+- guidance
+- contracte noi
+- lansări de produse
+- FDA/regulatory decisions
+- M&A
+- buybacks
+- investor day
+- analyst upgrades
+- macro catalysts favorabile sectorului
+
+Verifică data următorului earnings report.
+Penalizează puternic un setup dacă earnings urmează să aibă loc în perioada estimată a swing trade-ului, deoarece introduce event risk.
+
+────────────────────────────
+ETAPA 2 — RELATIVE STRENGTH
+────────────────────────────
+
+Compară tickerul cu:
+1. S&P 500
+2. Nasdaq, dacă este relevant
+3. ETF-ul sectorului
+4. principalii competitori
+
+Caută acțiuni care:
+- outperform piața
+- outperform sectorul
+- rezistă bine în zilele când piața scade
+- prezintă institutional accumulation
+- au volum mai mare pe zilele de creștere decât pe zilele de scădere
+
+────────────────────────────
+ETAPA 3 — TECHNICAL ANALYSIS
+────────────────────────────
+
+Analizează timeframe:
+- Weekly pentru trend major
+- Daily pentru setup
+- 4H pentru confirmare
+- 1H pentru entry timing
+
+Indicatori:
+- Price action
+- Market structure
+- EMA 9
+- EMA 20/21
+- EMA 50
+- SMA 200
+- RSI 14
+- MACD
+- ATR 14
+- Volume
+- Relative Volume
+- OBV dacă este relevant
+- VWAP / Anchored VWAP unde este relevant
+
+Identifică:
+- trend
+- higher highs / higher lows
+- support
+- resistance
+- supply/demand zones
+- breakout levels
+- retest levels
+- consolidation
+- volume profile dacă datele sunt disponibile
+
+SETUP-URI PREFERATE:
+
+A. BREAKOUT
+- consolidare clară
+- rezistență bine definită
+- breakout cu volum peste medie
+- ideal RVOL >1.5
+- retest sau confirmare
+
+B. PULLBACK IN UPTREND
+- trend bullish
+- pullback către EMA20/EMA50 sau suport
+- volum scăzut în timpul pullbackului
+- bullish rejection
+- volum crescut la reluarea trendului
+
+C. SUPPORT BOUNCE
+- suport important testat
+- invalidare clară
+- bullish reversal confirmation
+
+D. VOLATILITY CONTRACTION
+- range din ce în ce mai mic
+- volum în scădere
+- breakout cu expansiune de volum
+
+E. POST-EARNINGS DRIFT
+- earnings beat
+- guidance pozitiv
+- gap sau breakout
+- prețul menține câștigurile
+- consolidare constructivă după earnings
+
+────────────────────────────
+ETAPA 4 — MARKET REGIME
+────────────────────────────
+
+Înainte să recomanzi tranzacțiile, analizează:
+- SPY
+- QQQ
+- VIX
+- trendul general al pieței
+- breadth dacă există date
+- sector rotation
+- Treasury yields dacă sunt relevante
+- evenimente macro importante în următoarele zile:
+  CPI, PPI, FOMC, Powell, NFP, GDP etc.
+
+Clasifică mediul:
+RISK-ON / NEUTRAL / RISK-OFF.
+
+Într-un mediu RISK-OFF cere setup-uri mult mai puternice.
+
+────────────────────────────
+ETAPA 5 — ENTRY / STOP / TARGET
+────────────────────────────
+
+Pentru fiecare candidat calculează:
+
+ENTRY:
+Nu folosi arbitrar prețul curent.
+Definește trigger-ul exact care confirmă tranzacția.
+
+STOP LOSS:
+Trebuie plasat pe baza invalidării tehnice:
+- sub support
+- sub swing low
+- sub breakout/retest
+- sau ATR-based dacă este justificat.
+
+Nu folosi procente arbitrare precum -5%.
+
+TAKE PROFIT:
+TP1 = prima rezistență relevantă
+TP2 = următorul target tehnic
+TP3 = doar dacă structura justifică extensia
+
+Calculează:
+Entry
+Stop Loss
+Risk/share
+TP1
+TP2
+Reward/Risk TP1
+Reward/Risk TP2
+
+Respinge tranzacția dacă R:R realist <2:1.
+
+────────────────────────────
+ETAPA 6 — POSITION SIZING
+────────────────────────────
+
+Risk capital = Capital × 1%
+
+Risk/share = Entry - Stop Loss
+
+Shares = Risk Capital / Risk per share
+
+Calculează:
+- număr maxim de acțiuni
+- capital necesar
+- pierderea maximă dacă SL este executat
+- profit potențial TP1
+- profit potențial TP2
+
+Nu permite position sizing care depășește capitalul disponibil.
+
+────────────────────────────
+ETAPA 7 — SCORING
+────────────────────────────
+
+Acordă fiecărui ticker un scor 0–100:
+
+Fundamentals: 20%
+Technical setup: 30%
+Volume / institutional confirmation: 15%
+Relative strength: 15%
+Catalyst: 10%
+Market/sector alignment: 10%
+
+Aplică penalizări pentru:
+- earnings apropiate
+- low liquidity
+- excessive gap
+- resistance imediat deasupra entry
+- deteriorarea fundamentals
+- bearish market regime
+- abnormal volatility
+
+Acceptă doar setup-uri cu SCORE ≥80/100.
+
+────────────────────────────
+OUTPUT
+────────────────────────────
+
+Scanează piața și prezintă TOP 5 candidați într-un tabel:
+
+Ticker
+Company
+Price
+Setup
+Fundamental Score
+Technical Score
+Total Score
+Entry Trigger
+Stop Loss
+TP1
+TP2
+R:R
+Position Size
+Max Risk
+Catalyst
+Earnings Date
+Confidence
+
+Apoi selectează:
+
+# BEST SWING TRADE
+
+Explică:
+1. De ce acesta este cel mai bun setup
+2. Ce trebuie să se întâmple pentru ENTRY
+3. Ce invalidează setup-ul
+4. Stop Loss exact
+5. TP1 și TP2
+6. R:R
+7. Position size
+8. Catalyst
+9. Riscurile principale
+10. Ce ar determina decizia NO TRADE
+
+IMPORTANT:
+Nu recomanda cumpărarea doar pentru că tickerul îndeplinește criteriile.
+
+Diferențiază clar între:
+WATCHLIST
+și
+CONFIRMED ENTRY.
+
+Dacă trigger-ul tehnic nu s-a produs încă:
+"WAIT — NO ENTRY YET."
+
+Nu inventa indicatori sau prețuri lipsă.
+Spune explicit când o informație nu poate fi verificată.
+
+La final oferă verdict:
+BUY SETUP CONFIRMED
+WAIT FOR CONFIRMATION
+sau
+NO TRADE.
